@@ -11,6 +11,15 @@ async function bootstrap() {
   app.enableCors();
   app.use(compression());
   app.use(helmet());
+  app.use(helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      imgSrc: ["'self'", 'cdn.jsdelivr.net'],
+      styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com/css', 'cdn.jsdelivr.net'],
+      fontSrc: ["'self'", 'fonts.gstatic.com'],
+      scriptSrc: ["'self'", "'unsafe-inline'", 'cdn.jsdelivr.net']
+    }
+  }));
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(morgan('dev'));

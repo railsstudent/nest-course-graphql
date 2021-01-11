@@ -1,0 +1,13 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Course {
+  id: ID!
+  name: String
+  nativeName: String
+}
+
+type Query {
+  courses: [Course!]!
+}
