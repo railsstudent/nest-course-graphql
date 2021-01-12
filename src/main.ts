@@ -17,7 +17,7 @@ async function bootstrap() {
       imgSrc: ["'self'", 'cdn.jsdelivr.net'],
       styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com/css', 'cdn.jsdelivr.net'],
       fontSrc: ["'self'", 'fonts.gstatic.com'],
-      scriptSrc: ["'self'", "'unsafe-inline'", 'cdn.jsdelivr.net']
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'" , 'cdn.jsdelivr.net']
     }
   }));
   app.use(bodyParser.json())
