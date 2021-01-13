@@ -1,4 +1,5 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { UpdateCourseInput } from '../dto';
 import { AddCourseInput } from '../dto/add-course.dto';
 import { Course } from '../entities';
 import { CourseService } from '../services';
@@ -20,5 +21,10 @@ export class CourseResolver {
     @Mutation(() => Course) 
     addCourse(@Args('newCourse') input: AddCourseInput): Promise<Course> {
         return this.courseService.addCourse(input)
+    }
+
+    @Mutation(() => Course) 
+    updateCourse(@Args('course') input: UpdateCourseInput): Promise<Course> {
+        return this.courseService.updateCourse(input)
     }
 }

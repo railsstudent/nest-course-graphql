@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { UpdateCourseInput } from '../dto';
 import { AddCourseInput } from '../dto/add-course.dto';
 import { Course } from '../entities';
 
@@ -47,4 +48,19 @@ export class CourseService {
         return Promise.resolve(newCourse)
     }
 
+    updateCourse(input: UpdateCourseInput): Promise<Course> {
+        const { id } = input
+        const course = this.courses.find(course => course.id === id)
+        if (!course) {
+            throw new NotFoundException('Course is not found')
+        }
+
+        const updatedCourse: Course = {
+            ...course,
+            ...input
+        }
+
+        this.courses = this.courses.map(course => course.id !== id ? course : updatedCourse)
+        return Promise.resolve(updatedCourse)
+    }
 }

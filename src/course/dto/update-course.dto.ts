@@ -3,7 +3,6 @@ import { AddCourseInput } from "./add-course.dto";
 
 @InputType()
 export class UpdateCourseInput extends AddCourseInput {
-
     @Field(() => ID)
     id: string;
 }
