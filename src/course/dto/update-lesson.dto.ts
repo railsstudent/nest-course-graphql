@@ -1,8 +1,8 @@
 import { Field, ID, InputType, PartialType } from "@nestjs/graphql";
-import { AddCourseInput } from "./add-course.dto";
+import { AddLessonInput } from './add-lesson.dto';
 
 @InputType()
-export class UpdateCourseInput extends PartialType(AddCourseInput) {
+export class UpdateLessonInput extends PartialType(AddLessonInput) {
     @Field(() => ID)
     id: string;
 }

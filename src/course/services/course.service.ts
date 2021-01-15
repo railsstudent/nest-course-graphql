@@ -8,14 +8,14 @@ const COURSES: Course[] = [
         id: '1',
         name: 'Latin Spanish',
         nativeName: 'Español Latino',
-        createdAt: new Date(Date.now()),
-        updatedAt: new Date(Date.now())
+        createdAt: new Date(1610558940423),
+        updatedAt: new Date(1610558940423)
     },
     {
         id: '2',
         name: 'Brazilian Portuguese',
         nativeName: 'Português Brasileiro',
-        createdAt: new Date(Date.now()),
+        createdAt: new Date(1610558963135),
         updatedAt: new Date(Date.now())
     }
 ]
