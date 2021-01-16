@@ -80,15 +80,31 @@ export class LessonService {
                 const second = b.course.name.toLocaleLowerCase()
                 return first.localeCompare(second)
             })
-            .slice(offset, offset + limit);
+            .slice(offset * limit, limit * (offset + 1));
     }
 
-    addCourse(input: AddLessonInput): Promise<Lesson> {
+    getLesson(id: string): Promise<Lesson> {
+        const lessons =  this.lessons.filter(lesson => lesson.id === id)
+        if (lessons.length <= 0) {
+            throw new NotFoundException(`Lesson ${id} does not exist`);
+        }
+        return Promise.resolve(lessons[0]);
+    }
+
+    addLesson(input: AddLessonInput): Promise<Lesson> {
         const { name, courseId } = input
 
         const course = COURSES.find(course => course.id === courseId)
         if (!course) {
             throw new NotFoundException('Course not found');
+        }
+
+        const isDuplicatedName = this.lessons.some(
+            lesson => lesson.name === name && 
+            lesson.course.id === courseId
+        )
+        if (isDuplicatedName) {
+            throw new NotFoundException('Lesson name is already used');
         }
 
         const newLesson: Lesson = {
@@ -102,19 +118,29 @@ export class LessonService {
         return Promise.resolve(newLesson)
     }
 
-    updateCourse(input: UpdateLessonInput): Promise<Lesson> {
-        const { id } = input
-        const course = this.courses.find(course => course.id === id)
-        if (!course) {
-            throw new NotFoundException('Course is not found')
+    updateLesson(input: UpdateLessonInput): Promise<Lesson> {
+        const { id, name } = input
+
+        const existingLesson = this.lessons.find(lesson => lesson.id === id)
+        if (!existingLesson) {
+            throw new NotFoundException('Lesson not found');
         }
 
-        const updatedCourse: Course = {
-            ...course,
-            ...input
+        const existingCourseId = existingLesson?.course?.id || ''
+        const isDuplicatedName = this.lessons.some(
+            lesson => lesson.name === name && 
+            lesson.course.id === existingCourseId
+        )
+        if (isDuplicatedName) {
+            throw new NotFoundException('Cannot update, lesson name is already used');
         }
 
-        this.courses = this.courses.map(course => course.id !== id ? course : updatedCourse)
-        return Promise.resolve(updatedCourse)
+        const updatedLesson: Lesson = {
+            ...existingLesson,
+            name
+        }
+
+        this.lessons = this.lessons.map(lesson => lesson.id !== id ? lesson : updatedLesson)
+        return Promise.resolve(updatedLesson)
     }
 }

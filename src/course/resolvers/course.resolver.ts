@@ -1,12 +1,11 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { UpdateCourseInput } from '../dto';
-import { AddCourseInput } from '../dto/add-course.dto';
+import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { UpdateCourseInput, AddCourseInput, PaginationArgs } from '../dto';
 import { Course } from '../entities';
-import { CourseService } from '../services';
+import { CourseService, LessonService } from '../services';
 
 @Resolver(() => Course)
 export class CourseResolver {
-    constructor (private courseService: CourseService) {}
+    constructor (private courseService: CourseService, private lessonService: LessonService) {}
 
     @Query(() => [Course], { nullable: true })
     courses(): Promise<Course[]> {
@@ -26,5 +25,11 @@ export class CourseResolver {
     @Mutation(() => Course) 
     updateCourse(@Args('course') input: UpdateCourseInput): Promise<Course> {
         return this.courseService.updateCourse(input)
+    }
+
+    @ResolveField()
+    lessons(@Parent() course: Course, @Args('args') args: PaginationArgs) {
+        const { id: courseId } = course
+        return this.lessonService.getPaginatedLessons({ ...args, courseId })
     }
 }

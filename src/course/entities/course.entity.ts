@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { Lesson } from "./lesson.entity";
 
 @ObjectType()
 export class Course {
@@ -14,4 +15,7 @@ export class Course {
     createdAt?: Date
 
     updatedAt?: Date
+
+    @Field(() => [Lesson], { nullable: true })
+    lessons?: Lesson[]
 }

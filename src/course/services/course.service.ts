@@ -16,7 +16,7 @@ const COURSES: Course[] = [
         name: 'Brazilian Portuguese',
         nativeName: 'Português Brasileiro',
         createdAt: new Date(1610558963135),
-        updatedAt: new Date(Date.now())
+        updatedAt: new Date(1610558963135)
     }
 ]
 

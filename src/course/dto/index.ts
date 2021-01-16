@@ -3,3 +3,4 @@ export * from './update-course.dto';
 export * from './lesson-pagination.dto';
 export * from './add-lesson.dto';
 export * from './update-lesson.dto';
+export * from './pagination.dto';

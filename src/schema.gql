@@ -3,28 +3,54 @@
 # ------------------------------------------------------
 
 input AddCourseInput {
-  name: String
-  nativeName: String
+  name: String!
+  nativeName: String!
+}
+
+input AddLessonInput {
+  courseId: String!
+  name: String!
 }
 
 type Course {
   id: ID!
+  lessons(args: PaginationArgs!): [Lesson!]
   name: String
   nativeName: String
 }
 
+type Lesson {
+  course: Course!
+  id: ID!
+  name: String
+}
+
 type Mutation {
   addCourse(newCourse: AddCourseInput!): Course!
+  addLesson(newLesson: AddLessonInput!): Lesson!
   updateCourse(course: UpdateCourseInput!): Course!
+  updateLesson(lesson: UpdateLessonInput!): Lesson!
+}
+
+input PaginationArgs {
+  limit: Int = 10
+  offset: Int = 0
 }
 
 type Query {
   course(id: String = ""): Course
   courses: [Course!]
+  lesson(id: String = ""): Lesson
 }
 
 input UpdateCourseInput {
   id: ID!
   name: String
   nativeName: String
+}
+
+input UpdateLessonInput {
+  courseId: String
+  id: ID!
+  name: String
 }
