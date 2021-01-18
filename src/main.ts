@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as helmet from 'helmet';
-import * as rateLimit from 'express-rate-limit';
-import * as compression from 'compression';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import compression from 'compression';
 import * as bodyParser from 'body-parser';
-import * as morgan from 'morgan';
+import morgan from 'morgan';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

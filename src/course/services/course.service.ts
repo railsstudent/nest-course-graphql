@@ -1,28 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { UpdateCourseInput } from '../dto';
-import { AddCourseInput } from '../dto/add-course.dto';
+import { AddCourseInput, UpdateCourseInput } from '../dto';
 import { Course } from '../entities';
-
-const COURSES: Course[] = [
-    {
-        id: '1',
-        name: 'Latin Spanish',
-        nativeName: 'Español Latino',
-        createdAt: new Date(1610558940423),
-        updatedAt: new Date(1610558940423)
-    },
-    {
-        id: '2',
-        name: 'Brazilian Portuguese',
-        nativeName: 'Português Brasileiro',
-        createdAt: new Date(1610558963135),
-        updatedAt: new Date(1610558963135)
-    }
-]
+import data from "../assets/data.json"
 
 @Injectable()
 export class CourseService {
-    courses = [...COURSES]
+    courses: Course[] = data.courses.map(course => {
+        return {
+            ...course,
+            createdAt: new Date(course?.createdAt || Date.now() ),
+            updatedAt: new Date(course?.updatedAt || Date.now())
+        }
+    })
 
     getCourses(): Promise<Course[]> {
         return  Promise.resolve(this.courses);

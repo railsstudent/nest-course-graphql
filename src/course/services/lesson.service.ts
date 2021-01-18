@@ -1,73 +1,30 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { AddLessonInput, GetLessonArgs, UpdateLessonInput } from '../dto';
-import { Lesson } from '../entities';
-
-const spanishCourse = {
-    id: '1',
-    name: 'Latin Spanish',
-    nativeName: 'Español Latino',
-    createdAt: new Date(1610558940423),
-    updatedAt: new Date(1610558940423)
-}
-
-const portCourse = {
-    id: '2',
-    name: 'Brazilian Portuguese',
-    nativeName: 'Português Brasileiro',
-    createdAt: new Date(1610558963135),
-    updatedAt: new Date(1610558963135)
-}
-
-const COURSES = [spanishCourse, portCourse]
-
-const LESSONS: Lesson[] = [
-    {
-        id: '1',
-        name: 'Basic Phrase',
-        createdAt: new Date(1610559052972),
-        updatedAt: new Date(1610559052972),
-        course: spanishCourse
-    },
-    {
-        id: '2',
-        name: 'Basic Phrase',
-        createdAt: new Date(1610559067075),
-        updatedAt: new Date(1610559067075),
-        course: portCourse
-    },
-    {
-        id: '3',
-        name: 'Greeting',
-        createdAt: new Date(Date.now()),
-        updatedAt: new Date(Date.now()),
-        course: spanishCourse
-    },
-    {
-        id: '4',
-        name: 'Weather',
-        createdAt: new Date(Date.now()),
-        updatedAt: new Date(Date.now()),
-        course: portCourse
-    },
-    {
-        id: '5',
-        name: 'Routine',
-        createdAt: new Date(Date.now()),
-        updatedAt: new Date(Date.now()),
-        course: spanishCourse
-    },
-    {
-        id: '6',
-        name: 'Shopping',
-        createdAt: new Date(Date.now()),
-        updatedAt: new Date(Date.now()),
-        course: spanishCourse
-    }
-]
+import { Course, Lesson } from '../entities';
+import data from "../assets/data.json"
 
 @Injectable()
-export class LessonService {
-    lessons = [...LESSONS];
+export class SetenceService {
+    lessons: Lesson[] = data.lessons.map(lesson => {
+        return {
+            ...lesson,
+            course: {
+                ...lesson.course,
+                createdAt: new Date(lesson?.course?.createdAt || Date.now()),
+                updatedAt: new Date(lesson?.course?.updatedAt || Date.now())    
+            },
+            createdAt: new Date(lesson?.createdAt || Date.now()),
+            updatedAt: new Date(lesson?.updatedAt || Date.now())
+        }
+    });
+
+    courses: Course[] = data.courses.map(course => {
+        return {
+            ...course,
+            createdAt: new Date(course?.createdAt || Date.now()),
+            updatedAt: new Date(course?.updatedAt || Date.now())    
+        }
+    });
 
     getPaginatedLessons(args: GetLessonArgs) {
         const { courseId, offset, limit } = args || {}
@@ -94,7 +51,7 @@ export class LessonService {
     addLesson(input: AddLessonInput): Promise<Lesson> {
         const { name, courseId } = input
 
-        const course = COURSES.find(course => course.id === courseId)
+        const course = this.courses.find(course => course.id === courseId)
         if (!course) {
             throw new NotFoundException('Course not found');
         }
