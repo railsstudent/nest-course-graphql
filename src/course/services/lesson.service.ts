@@ -4,7 +4,7 @@ import { Course, Lesson } from '../entities';
 import data from "../assets/data.json"
 
 @Injectable()
-export class SetenceService {
+export class LessonService {
     lessons: Lesson[] = data.lessons.map(lesson => {
         return {
             ...lesson,
