@@ -12,6 +12,7 @@ input AddLessonInput {
   name: String!
 }
 
+"""Course model"""
 type Course {
   id: ID!
   lessons(args: PaginationArgs!): [Lesson!]
@@ -19,6 +20,13 @@ type Course {
   nativeName: String
 }
 
+"""Language model"""
+type Language {
+  id: ID!
+  language: String
+}
+
+"""Lesson model"""
 type Lesson {
   course: Course!
   id: ID!
@@ -44,6 +52,7 @@ type Query {
   lesson(id: String = ""): Lesson
 }
 
+"""Sentence model"""
 type Sentence {
   id: ID!
   lesson: Lesson!

@@ -1,18 +1,15 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { Lesson } from './lesson.entity'
 
-@ObjectType({ description: 'Sentence model' })
-export class Sentence {
+@ObjectType({ description: 'Language model' })
+export class Language {
   @Field(() => ID)
   id: string
 
   @Field(() => String, { nullable: true })
-  text?: string
+  language?: string
 
   createdAt?: Date
 
   updatedAt?: Date
-
-  @Field(() => Lesson)
-  lesson: Lesson
 }
