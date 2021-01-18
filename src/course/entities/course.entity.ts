@@ -1,21 +1,21 @@
-import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { Lesson } from "./lesson.entity";
+import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { Lesson } from './lesson.entity'
 
 @ObjectType()
 export class Course {
-    @Field(() => ID)
-    id: string
+  @Field(() => ID)
+  id: string
 
-    @Field(() => String, { nullable: true })
-    name?: string
+  @Field(() => String, { nullable: true })
+  name?: string
 
-    @Field(() => String, { nullable: true })
-    nativeName?: string
+  @Field(() => String, { nullable: true })
+  nativeName?: string
 
-    createdAt?: Date
+  createdAt?: Date
 
-    updatedAt?: Date
+  updatedAt?: Date
 
-    @Field(() => [Lesson], { nullable: true })
-    lessons?: Lesson[]
+  @Field(() => [Lesson], { nullable: true })
+  lessons?: Lesson[]
 }

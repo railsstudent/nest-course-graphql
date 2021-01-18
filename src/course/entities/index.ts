@@ -1,3 +1,3 @@
-export * from './course.entity';
-export * from './lesson.entity';
-export * from './sentence.entity';
+export * from './course.entity'
+export * from './lesson.entity'
+export * from './sentence.entity'

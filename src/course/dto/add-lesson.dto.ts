@@ -1,11 +1,10 @@
-import { Field, InputType } from "@nestjs/graphql";
+import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
 export class AddLessonInput {
+  @Field(() => String)
+  name: string
 
-    @Field(() => String)
-    name: string;
-
-    @Field(() => String)
-    courseId: string
+  @Field(() => String)
+  courseId: string
 }
