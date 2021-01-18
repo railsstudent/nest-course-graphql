@@ -26,11 +26,10 @@ export class LessonService {
         }
     });
 
-    getPaginatedLessons(args: GetLessonArgs) {
+    getPaginatedLessons(args: GetLessonArgs): Promise<Lesson[]> {
         const { courseId, offset, limit } = args || {}
-        console.log(courseId, offset, limit)
 
-        return this.lessons
+        const lessons = this.lessons
             .filter(lesson => lesson.course.id === courseId)
             .sort((a, b) => {
                 const first = a.course.name.toLocaleLowerCase()
@@ -38,6 +37,7 @@ export class LessonService {
                 return first.localeCompare(second)
             })
             .slice(offset * limit, limit * (offset + 1));
+        return Promise.resolve(lessons)
     }
 
     getLesson(id: string): Promise<Lesson> {

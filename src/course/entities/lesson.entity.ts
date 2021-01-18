@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
 import { Course } from "./course.entity";
+import { Sentence } from "./sentence.entity";
 
 @ObjectType()
 export class Lesson {
@@ -15,4 +16,7 @@ export class Lesson {
 
     @Field(() => Course)
     course: Course
+
+    @Field(() => [Sentence], { nullable: true })
+    sentences?: Sentence[]
 }

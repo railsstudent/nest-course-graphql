@@ -304,6 +304,44 @@
                     "updatedAt": 1610558940423
                 }
             }
+        },
+        {
+            "id": "03ac28bc-0e6c-4e05-b1ba-c4acb7248e9c",
+            "text": "Yo soy una mujer",
+            "createdAt": 1610559052972,
+            "updatedAt": 1610559052972,
+            "lesson": {
+                "id": "1",
+                "name": "Basic Phrase",
+                "createdAt": 1610559052972,
+                "updatedAt": 1610559052972,
+                "course": {
+                    "id": "1",
+                    "name": "Latin Spanish",
+                    "nativeName": "Español Latino",
+                    "createdAt": 1610558940423,
+                    "updatedAt": 1610558940423
+                }
+            }
+        },
+        {
+            "id": "ad16dc6c-1867-449f-bff5-a9fd9698014f",
+            "text": "Yo soy una niña",
+            "createdAt": 1610559052972,
+            "updatedAt": 1610559052972,
+            "lesson": {
+                "id": "1",
+                "name": "Basic Phrase",
+                "createdAt": 1610559052972,
+                "updatedAt": 1610559052972,
+                "course": {
+                    "id": "1",
+                    "name": "Latin Spanish",
+                    "nativeName": "Español Latino",
+                    "createdAt": 1610558940423,
+                    "updatedAt": 1610558940423
+                }
+            }
         }
     ]
 }
