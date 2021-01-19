@@ -5,10 +5,11 @@ import rateLimit from 'express-rate-limit'
 import compression from 'compression'
 import * as bodyParser from 'body-parser'
 import morgan from 'morgan'
+import cors from 'cors'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
-  app.enableCors()
+  app.use(cors())
   app.use(compression())
   app.use(helmet())
   app.use(
