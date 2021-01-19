@@ -49,6 +49,23 @@ http://localhost:3000/graphql
 https://github.com/nestjs/nest/tree/master/sample/23-graphql-code-first
 ```
 
+## PostgreSQL Database
+
+```
+Host:     pgsql-server
+Database: postgres
+Username: postgres
+Password: postgres
+```
+
+## PgAdmin login to access data in local environment
+
+```
+Browser: http://localhost:5050
+Username: pgadmin4@pgadmin.org
+Password: pgadmin
+```
+
 ## License
 
 Nest is [MIT licensed](LICENSE).
