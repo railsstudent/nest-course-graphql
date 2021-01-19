@@ -14,8 +14,8 @@ export class Lesson {
 
   updatedAt?: Date
 
-  @Field(() => Course)
-  course: Course
+  @Field(() => Course, { nullable: true })
+  course?: Course
 
   @Field(() => [Sentence], { nullable: true })
   sentences?: Sentence[]

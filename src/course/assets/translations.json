@@ -1,0 +1,126 @@
+{
+  "translations": [
+    {
+      "id": "23db52b6-4837-41f0-ae69-c3ee25f4e6a8",
+      "text": "Good Morning",
+      "createdAt": 1610559052972,
+      "updatedAt": 1610559052972,
+      "language": {
+        "id": "ccb86cd2-9faf-4766-8845-bd80fa8c337b",
+        "language": "English",
+        "createdAt": 1610559052972,
+        "updatedAt": 1610559052972
+      },
+      "sentence": {
+        "id": "45316af5-fcc3-42fb-99da-c22f9c752970",
+        "text": "Buenos días",
+        "createdAt": 1610928871203,
+        "updatedAt": 1610928871203
+      }
+    },
+    {
+      "id": "896ea005-35db-4727-901b-991c1e7c9ecf",
+      "text": "Good afternoon",
+      "createdAt": 1610559052972,
+      "updatedAt": 1610559052972,
+      "language": {
+        "id": "ccb86cd2-9faf-4766-8845-bd80fa8c337b",
+        "language": "English",
+        "createdAt": 1610559052972,
+        "updatedAt": 1610559052972
+      },
+      "sentence": {
+        "id": "52d6b15e-0128-4bf8-a416-caec4bdddcd6",
+        "text": "Buenas tardes",
+        "createdAt": 1610559052972,
+        "updatedAt": 1610559052972
+      }
+    },
+    {
+      "id": "a378b0cf-7d87-43ba-8c3c-1891c63d54a3",
+      "text": "Good night",
+      "createdAt": 1610559052972,
+      "updatedAt": 1610559052972,
+      "language": {
+        "id": "ccb86cd2-9faf-4766-8845-bd80fa8c337b",
+        "language": "English",
+        "createdAt": 1610559052972,
+        "updatedAt": 1610559052972
+      },
+      "sentence": {
+        "id": "7269cfa9-6bec-46be-a327-a422041c4d0e",
+        "text": "Buenas noches",
+        "createdAt": 1610559052972,
+        "updatedAt": 1610559052972
+      }
+    },
+    {
+      "id": "f43c3d04-95f5-43eb-9ebe-48dcea3b3e31",
+      "text": "I am a woman",
+      "createdAt": 1610990754781,
+      "updatedAt": 1610990754781,
+      "language": {
+        "id": "ccb86cd2-9faf-4766-8845-bd80fa8c337b",
+        "language": "English",
+        "createdAt": 1610990754781,
+        "updatedAt": 1610990754781
+      },
+      "sentence": {
+        "id": "03ac28bc-0e6c-4e05-b1ba-c4acb7248e9c",
+        "text": "Yo soy una mujer",
+        "createdAt": 1610559052972,
+        "updatedAt": 1610559052972
+      }
+    },
+    {
+      "id": "99127fcc-5d34-478d-94c9-210e1dcb721c",
+      "text": "I am a girl",
+      "createdAt": 1610990754781,
+      "updatedAt": 1610990754781,
+      "language": {
+        "id": "ccb86cd2-9faf-4766-8845-bd80fa8c337b",
+        "language": "English",
+        "createdAt": 1610990754781,
+        "updatedAt": 1610990754781
+      },
+      "sentence": {
+        "id": "ad16dc6c-1867-449f-bff5-a9fd9698014f",
+        "text": "Yo soy una niña",
+        "createdAt": 1610559052972,
+        "updatedAt": 1610559052972
+      }
+    },
+    {
+      "id": "1b1dd72b-7fc7-49ba-9e0d-e5d2d364d786",
+      "text": "Eu sou uma menina",
+      "createdAt": 1610990929076,
+      "updatedAt": 1610990929076,
+      "language": {
+        "id": "890389ab-3efb-4fcf-b1c1-bb1926ce5bab",
+        "language": "Brazilian Portuguese",
+        "createdAt": 1610990938306,
+        "updatedAt": 1610990938306
+      },
+      "sentence": {
+        "id": "ad16dc6c-1867-449f-bff5-a9fd9698014f",
+        "text": "Yo soy una niña",
+        "createdAt": 1610559052972,
+        "updatedAt": 1610559052972
+      }
+    }
+  ],
+  "languages": [
+    {
+      "id": "ccb86cd2-9faf-4766-8845-bd80fa8c337b",
+      "language": "English",
+      "createdAt": 1610559052972,
+      "updatedAt": 1610559052972
+    },
+    {
+      "id": "890389ab-3efb-4fcf-b1c1-bb1926ce5bab",
+      "language": "Brazilian Portuguese",
+      "createdAt": 1610990938306,
+      "updatedAt": 1610990938306
+    }
+  ]
+}

@@ -7,9 +7,19 @@ input AddCourseInput {
   nativeName: String!
 }
 
+input AddLanguageInput {
+  language: String!
+}
+
 input AddLessonInput {
   courseId: String!
   name: String!
+}
+
+input AddTranslationInput {
+  languageId: String!
+  sentenceId: String!
+  text: String!
 }
 
 """Course model"""
@@ -28,7 +38,7 @@ type Language {
 
 """Lesson model"""
 type Lesson {
-  course: Course!
+  course: Course
   id: ID!
   name: String
   sentences: [Sentence!]
@@ -36,7 +46,9 @@ type Lesson {
 
 type Mutation {
   addCourse(newCourse: AddCourseInput!): Course!
+  addLanguage(newLanguage: AddLanguageInput!): Language!
   addLesson(newLesson: AddLessonInput!): Lesson!
+  addTranslation(newTranslation: AddTranslationInput!): Translation!
   updateCourse(course: UpdateCourseInput!): Course!
   updateLesson(lesson: UpdateLessonInput!): Lesson!
 }
@@ -49,13 +61,23 @@ input PaginationArgs {
 type Query {
   course(id: String = ""): Course
   courses: [Course!]
+  getLanguages: [Language!]!
   lesson(id: String = ""): Lesson
 }
 
 """Sentence model"""
 type Sentence {
   id: ID!
-  lesson: Lesson!
+  lesson: Lesson
+  text: String
+  translations: [Translation!]
+}
+
+"""Translation model"""
+type Translation {
+  id: ID!
+  language: Language!
+  sentence: Sentence
   text: String
 }
 

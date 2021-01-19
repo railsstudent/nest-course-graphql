@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { AddLessonInput, GetLessonArgs, UpdateLessonInput } from '../dto'
 import { Course, Lesson } from '../entities'
-import data from '../assets/data.json'
+import data from '../assets/courses.json'
 
 @Injectable()
 export class LessonService {
@@ -58,7 +58,7 @@ export class LessonService {
 
     const isDuplicatedName = this.lessons.some((lesson) => lesson.name === name && lesson.course.id === courseId)
     if (isDuplicatedName) {
-      throw new NotFoundException('Lesson name is already used')
+      throw new BadRequestException('Lesson name is already used')
     }
 
     const newLesson: Lesson = {
@@ -81,9 +81,11 @@ export class LessonService {
     }
 
     const existingCourseId = existingLesson?.course?.id || ''
-    const isDuplicatedName = this.lessons.some((lesson) => lesson.name === name && lesson.course.id === existingCourseId)
+    const isDuplicatedName = this.lessons.some(
+      (lesson) => lesson.name === name && lesson.course.id === existingCourseId,
+    )
     if (isDuplicatedName) {
-      throw new NotFoundException('Cannot update, lesson name is already used')
+      throw new BadRequestException('Cannot update, lesson name is already used')
     }
 
     const updatedLesson: Lesson = {

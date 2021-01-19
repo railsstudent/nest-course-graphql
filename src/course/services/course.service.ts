@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { AddCourseInput, UpdateCourseInput } from '../dto'
 import { Course } from '../entities'
-import data from '../assets/data.json'
+import data from '../assets/courses.json'
 
 @Injectable()
 export class CourseService {
