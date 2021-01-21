@@ -66,6 +66,10 @@ Username: pgadmin4@pgadmin.org
 Password: pgadmin
 ```
 
+## Prisma CLI command
+
+https://www.prisma.io/docs/reference/api-reference/command-reference
+
 ## License
 
 Nest is [MIT licensed](LICENSE).
