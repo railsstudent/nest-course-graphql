@@ -3,8 +3,8 @@
 # ------------------------------------------------------
 
 input AddCourseInput {
+  languageId: String!
   name: String!
-  nativeName: String!
 }
 
 input AddLanguageInput {
@@ -24,10 +24,11 @@ input AddTranslationInput {
 
 """Course model"""
 type Course {
+  description: String
   id: ID!
+  language: Language
   lessons(args: PaginationArgs!): [Lesson!]
   name: String
-  nativeName: String
 }
 
 """Language model"""
@@ -83,8 +84,8 @@ type Translation {
 
 input UpdateCourseInput {
   id: ID!
+  languageId: String
   name: String
-  nativeName: String
 }
 
 input UpdateLessonInput {

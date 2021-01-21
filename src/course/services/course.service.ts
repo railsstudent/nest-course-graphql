@@ -5,13 +5,7 @@ import data from '../assets/courses.json'
 
 @Injectable()
 export class CourseService {
-  courses: Course[] = data.courses.map((course) => {
-    return {
-      ...course,
-      createdAt: new Date(course?.createdAt || Date.now()),
-      updatedAt: new Date(course?.updatedAt || Date.now()),
-    }
-  })
+  courses: Course[] = []
 
   getCourses(): Promise<Course[]> {
     return Promise.resolve(this.courses)
@@ -29,24 +23,39 @@ export class CourseService {
     const newCourse = {
       id: `${this.courses.length + 1}`,
       name: input.name || '',
-      nativeName: input.nativeName || '',
       createdAt: new Date(Date.now()),
       updatedAt: new Date(Date.now()),
+      language: {
+        id: '46fd0057-eeb7-4278-bf05-af1aa485d1f4',
+        language: 'Spanish',
+        createdAt: new Date(1610559052972),
+        updatedAt: new Date(1610559052972),
+      },
     }
     this.courses.push(newCourse)
     return Promise.resolve(newCourse)
   }
 
   updateCourse(input: UpdateCourseInput): Promise<Course> {
-    const { id } = input
+    const { id, languageId = '', name = '' } = input
     const course = this.courses.find((course) => course.id === id)
     if (!course) {
       throw new NotFoundException('Course is not found')
     }
 
+    // if (languageId) {
+
+    // }
+
     const updatedCourse: Course = {
       ...course,
-      ...input,
+      name,
+      language: {
+        id: '46fd0057-eeb7-4278-bf05-af1aa485d1f4',
+        language: 'Spanish',
+        createdAt: new Date(1610559052972),
+        updatedAt: new Date(1610559052972),
+      },
     }
 
     this.courses = this.courses.map((course) => (course.id !== id ? course : updatedCourse))

@@ -6,5 +6,5 @@ export class AddCourseInput {
   name: string
 
   @Field(() => String)
-  nativeName: string
+  languageId: string
 }

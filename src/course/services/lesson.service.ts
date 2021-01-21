@@ -5,26 +5,9 @@ import data from '../assets/courses.json'
 
 @Injectable()
 export class LessonService {
-  lessons: Lesson[] = data.lessons.map((lesson) => {
-    return {
-      ...lesson,
-      course: {
-        ...lesson.course,
-        createdAt: new Date(lesson?.course?.createdAt || Date.now()),
-        updatedAt: new Date(lesson?.course?.updatedAt || Date.now()),
-      },
-      createdAt: new Date(lesson?.createdAt || Date.now()),
-      updatedAt: new Date(lesson?.updatedAt || Date.now()),
-    }
-  })
+  lessons: Lesson[] = []
 
-  courses: Course[] = data.courses.map((course) => {
-    return {
-      ...course,
-      createdAt: new Date(course?.createdAt || Date.now()),
-      updatedAt: new Date(course?.updatedAt || Date.now()),
-    }
-  })
+  courses: Course[] = []
 
   getPaginatedLessons(args: GetLessonArgs): Promise<Lesson[]> {
     const { courseId, offset, limit } = args || {}

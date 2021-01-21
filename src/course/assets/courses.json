@@ -2,17 +2,29 @@
   "courses": [
     {
       "id": "1",
-      "name": "Latin Spanish",
-      "nativeName": "Español Latino",
+      "name": "Spanish 101",
+      "description": "Beginner Level Spanish Course",
       "createdAt": 1610558940423,
-      "updatedAt": 1610558940423
+      "updatedAt": 1610558940423,
+      "language": {
+        "id": "46fd0057-eeb7-4278-bf05-af1aa485d1f4",
+        "language": "Spanish",
+        "createdAt": 1610559052972,
+        "updatedAt": 1610559052972
+      }
     },
     {
       "id": "2",
       "name": "Brazilian Portuguese",
-      "nativeName": "Português Brasileiro",
+      "description": "Beginner Level Portuguese Course",
       "createdAt": 1610558963135,
-      "updatedAt": 1610558963135
+      "updatedAt": 1610558963135,
+      "language": {
+        "id": "cbdfb2ff-6b0a-4826-8f37-baf130b86c77",
+        "language": "Portuguese",
+        "createdAt": 1610559052972,
+        "updatedAt": 1610559052972
+      }
     }
   ],
   "lessons": [
