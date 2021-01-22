@@ -9,22 +9,24 @@ datasource db {
 
 model course {
   id         String   @id @default(uuid())
-  name       String?
-  nativeName String?
+  name       String?  @unique
   description String?
+  languageId String?
+  langauge   language? @relation(fields: [languageId], references: [id])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now())
   lessons     lesson[]
-
-  @@unique([name, nativeName], name: "course_name_nativeName_key")
 }
 
 model language {
   id          String        @id @default(uuid())
-  language    String?       @unique
+  name        String?       
+  nativeName  String?       
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @default(now())
   translations translation[]
+
+  @@unique([name, nativeName], name: "lanaguage_name_nativeName_key")
 }
 
 model lesson {

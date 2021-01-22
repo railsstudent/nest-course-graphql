@@ -6,7 +6,10 @@ export class Language {
   id: string
 
   @Field(() => String, { nullable: true })
-  language?: string
+  name?: string
+
+  @Field(() => String, { nullable: true })
+  nativeName?: string
 
   createdAt?: Date
 

@@ -20,14 +20,15 @@ export class CourseService {
   }
 
   addCourse(input: AddCourseInput): Promise<Course> {
-    const newCourse = {
+    const newCourse: Course = {
       id: `${this.courses.length + 1}`,
       name: input.name || '',
       createdAt: new Date(Date.now()),
       updatedAt: new Date(Date.now()),
       language: {
         id: '46fd0057-eeb7-4278-bf05-af1aa485d1f4',
-        language: 'Spanish',
+        name: 'Spanish',
+        nativeName: 'Español',
         createdAt: new Date(1610559052972),
         updatedAt: new Date(1610559052972),
       },
@@ -52,7 +53,8 @@ export class CourseService {
       name,
       language: {
         id: '46fd0057-eeb7-4278-bf05-af1aa485d1f4',
-        language: 'Spanish',
+        name: 'Spanish',
+        nativeName: 'Español',
         createdAt: new Date(1610559052972),
         updatedAt: new Date(1610559052972),
       },
