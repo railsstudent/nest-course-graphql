@@ -3,12 +3,14 @@
 # ------------------------------------------------------
 
 input AddCourseInput {
+  description: String!
   languageId: String!
   name: String!
 }
 
 input AddLanguageInput {
-  language: String!
+  name: String!
+  nativeName: String!
 }
 
 input AddLessonInput {
@@ -34,7 +36,8 @@ type Course {
 """Language model"""
 type Language {
   id: ID!
-  language: String
+  name: String
+  nativeName: String
 }
 
 """Lesson model"""
@@ -51,6 +54,7 @@ type Mutation {
   addLesson(newLesson: AddLessonInput!): Lesson!
   addTranslation(newTranslation: AddTranslationInput!): Translation!
   updateCourse(course: UpdateCourseInput!): Course!
+  updateLanguage(updateLanguage: UpdateLanguageInput!): Language!
   updateLesson(lesson: UpdateLessonInput!): Lesson!
 }
 
@@ -83,9 +87,16 @@ type Translation {
 }
 
 input UpdateCourseInput {
+  description: String
   id: ID!
   languageId: String
   name: String
+}
+
+input UpdateLanguageInput {
+  id: ID!
+  name: String
+  nativeName: String
 }
 
 input UpdateLessonInput {

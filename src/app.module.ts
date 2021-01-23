@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { join } from 'path'
-import { CourseModule } from './course/course.module'
+import { CourseModule } from './course'
 
 @Module({
   imports: [

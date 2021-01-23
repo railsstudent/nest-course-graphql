@@ -1,5 +1,5 @@
 import { PrismaService } from 'src/prisma/prisma.service'
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { AddCourseInput, UpdateCourseInput } from '../dto'
 import { Course } from '../entities'
 
