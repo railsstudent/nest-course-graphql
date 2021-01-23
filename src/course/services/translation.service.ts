@@ -118,11 +118,22 @@ export class TranslationService {
 
     const language = await this.service.language.findFirst({
       where: {
-        ...rest,
+        AND: [
+          {
+            ...rest,
+          },
+        ],
+        NOT: [
+          {
+            id: {
+              equals: id,
+            },
+          },
+        ],
       },
     })
 
-    if (language && language.id !== id) {
+    if (language) {
       const { name = '', nativeName = '' } = rest
       const pair = `${name}${name && nativeName ? '/' : ''}${nativeName}`
       throw new BadRequestException(`${pair} already exists`)

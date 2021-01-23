@@ -91,12 +91,23 @@ export class LessonService {
     const courseId = existingLesson?.course?.id || ''
     const duplicatedLesson = await this.service.lesson.findFirst({
       where: {
-        name: {
-          equals: name,
-        },
-        courseId: {
-          equals: courseId,
-        },
+        AND: [
+          {
+            name: {
+              equals: name,
+            },
+            courseId: {
+              equals: courseId,
+            },
+          },
+        ],
+        NOT: [
+          {
+            id: {
+              equals: id,
+            },
+          },
+        ],
       },
     })
 
