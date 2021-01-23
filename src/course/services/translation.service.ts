@@ -1,121 +1,114 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
-import { Language, Sentence, Translation } from '../entities'
-import data from '../assets/translations.json'
-import courseData from '../assets/courses.json'
+import { PrismaService } from '../../prisma'
+import { Language, Translation } from '../entities'
 import { AddLanguageInput, AddTranslationInput } from '../dto'
 
 @Injectable()
 export class TranslationService {
-  translations: Translation[] = data.translations.map((translate) => {
-    return {
-      ...translate,
-      language: {
-        ...translate?.language,
-        createdAt: new Date(translate?.language?.createdAt || Date.now()),
-        updatedAt: new Date(translate?.language?.updatedAt || Date.now()),
+  private async findLanguage(languageId: string) {
+    return await this.service.language.findUnique({
+      where: {
+        id: languageId,
       },
-      sentence: {
-        ...translate?.sentence,
-        createdAt: new Date(translate?.sentence?.createdAt || Date.now()),
-        updatedAt: new Date(translate?.sentence?.updatedAt || Date.now()),
+    })
+  }
+
+  constructor(private service: PrismaService) {}
+
+  async getTranslations(sentenceId: string): Promise<Translation[]> {
+    const translations = await this.service.translation.findMany({
+      where: {
+        sentenceId,
       },
-      createdAt: new Date(translate?.createdAt || Date.now()),
-      updatedAt: new Date(translate?.updatedAt || Date.now()),
-    }
-  })
-
-  languages: Language[] = (data as any).languages.map((langauge) => {
-    return {
-      ...langauge,
-      createdAt: new Date(langauge?.createdAt || Date.now()),
-      updatedAt: new Date(langauge?.updatedAt || Date.now()),
-    }
-  })
-
-  sentences: Sentence[] = courseData.sentences.map((sentence) => {
-    return {
-      ...sentence,
-      createdAt: new Date(sentence?.createdAt || Date.now()),
-      updatedAt: new Date(sentence?.updatedAt || Date.now()),
-      lesson: {
-        ...sentence.lesson,
-        createdAt: new Date(sentence?.lesson?.createdAt || Date.now()),
-        updatedAt: new Date(sentence?.lesson?.updatedAt || Date.now()),
-        course: {
-          ...sentence?.lesson?.course,
-          createdAt: new Date(sentence?.lesson?.course?.createdAt || Date.now()),
-          updatedAt: new Date(sentence?.lesson?.course?.updatedAt || Date.now()),
+      orderBy: [
+        {
+          text: 'asc',
         },
+      ],
+      include: {
+        language: true,
+        sentence: true,
       },
-    }
-  })
-
-  getTranslations(sentenceId: string): Promise<Translation[]> {
-    const translations = this.translations
-      .filter((translation) => {
-        const currentSentenceId = translation?.sentence?.id || ''
-        return currentSentenceId === sentenceId
-      })
-      .sort((a, b) => a.text.localeCompare(b.text))
+    })
     return Promise.resolve(translations)
   }
 
   async addTranslation(input: AddTranslationInput): Promise<Translation> {
     const { text, languageId, sentenceId } = input
 
-    const sentence = this.sentences.find((sentence) => sentence.id === sentenceId)
+    const sentence = await this.service.sentence.findUnique({
+      where: {
+        id: sentenceId,
+      },
+      include: {
+        translations: true,
+      },
+    })
     if (!sentence) {
       throw new NotFoundException('Sentence not found')
     }
 
-    const language = this.languages.find((lang) => lang.id === languageId)
+    const language = await this.findLanguage(languageId)
     if (!language) {
       throw new NotFoundException('Language not found')
     }
 
-    const isDuplicatedLang = this.translations.some((translation) => translation?.language?.id === languageId)
+    const isDuplicatedLang = sentence.translations.some((translation) => translation?.languageId === languageId)
     if (isDuplicatedLang) {
-      throw new BadRequestException(`Translation is already added for language ${language.language}`)
+      const language = await this.findLanguage(languageId)
+      throw new BadRequestException(`Translation is already added for language ${language?.name}`)
     }
 
-    const duplTranslation = this.translations.find((translation) => translation?.text === text)
+    const duplTranslation = sentence.translations.find((translation) => translation?.text === text)
     if (duplTranslation) {
-      throw new BadRequestException(
-        `${duplTranslation?.text} is already added for language ${duplTranslation?.language?.language}`,
-      )
+      const language = await this.findLanguage(duplTranslation.languageId)
+      throw new BadRequestException(`${duplTranslation?.text} is already added for language ${language?.name}`)
     }
 
-    const newTranslation: Translation = {
-      id: `${this.languages.length + 1}`,
-      text: text || '',
-      createdAt: new Date(Date.now()),
-      updatedAt: new Date(Date.now()),
-      language,
-      sentence,
-    }
-    this.translations.push(newTranslation)
+    const newTranslation = await this.service.translation.create({
+      data: {
+        text,
+        languageId,
+        sentenceId,
+      },
+      include: {
+        sentence: true,
+        language: true,
+      },
+    })
     return Promise.resolve(newTranslation)
   }
 
-  async getLangauges(): Promise<Language[]> {
-    return await this.languages.sort((a, b) => a.language.localeCompare(b.language))
+  async getLanguages(): Promise<Language[]> {
+    return await this.service.language.findMany({
+      orderBy: [
+        {
+          name: 'asc',
+        },
+      ],
+    })
   }
 
   async addLanguage(input: AddLanguageInput): Promise<Language> {
     const { language } = input
 
-    const isDuplicateLanguage = this.languages.find((lang) => lang.language === language)
-    if (isDuplicateLanguage) {
+    const existingLanguage = await this.service.language.findFirst({
+      where: {
+        name: {
+          equals: language,
+        },
+      },
+    })
+
+    if (existingLanguage) {
       throw new BadRequestException('Language is already added')
     }
 
-    const newLanguage: Language = {
-      id: `${this.languages.length + 1}`,
-      language: language || '',
-      createdAt: new Date(Date.now()),
-      updatedAt: new Date(Date.now()),
-    }
-    this.languages.push(newLanguage)
+    const newLanguage = await this.service.language.create({
+      data: {
+        name: language,
+      },
+    })
     return Promise.resolve(newLanguage)
   }
 }

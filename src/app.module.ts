@@ -8,6 +8,7 @@ import { CourseModule } from './course/course.module'
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
+      include: [CourseModule],
     }),
     CourseModule,
   ],
