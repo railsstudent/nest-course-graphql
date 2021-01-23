@@ -70,6 +70,10 @@ Password: pgadmin
 
 https://www.prisma.io/docs/reference/api-reference/command-reference
 
+## Prisma Quick Start TypeScript
+
+https://www.prisma.io/docs/getting-started/quickstart-typescript
+
 ## License
 
 Nest is [MIT licensed](LICENSE).
