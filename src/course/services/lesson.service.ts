@@ -10,7 +10,7 @@ export class LessonService {
   async getPaginatedLessons(args: GetLessonArgs): Promise<Lesson[]> {
     const { courseId, offset, limit } = args || {}
 
-    const lessons = await this.service.lesson.findMany({
+    return await this.service.lesson.findMany({
       where: {
         courseId,
       },
@@ -25,12 +25,10 @@ export class LessonService {
         course: true,
       },
     })
-
-    return Promise.resolve(lessons)
   }
 
   async getLesson(id: string): Promise<Lesson> {
-    const lesson = await this.service.lesson.findUnique({
+    return await this.service.lesson.findUnique({
       where: {
         id,
       },
@@ -39,8 +37,6 @@ export class LessonService {
       },
       rejectOnNotFound: true,
     })
-
-    return Promise.resolve(lesson)
   }
 
   async addLesson(input: AddLessonInput): Promise<Lesson> {
@@ -68,7 +64,7 @@ export class LessonService {
       throw new BadRequestException('Lesson name is already used')
     }
 
-    const newLesson = await this.service.lesson.create({
+    return await this.service.lesson.create({
       data: {
         name,
         courseId,
@@ -77,8 +73,6 @@ export class LessonService {
         course: true,
       },
     })
-
-    return Promise.resolve(newLesson)
   }
 
   async updateLesson(input: UpdateLessonInput): Promise<Lesson> {
@@ -110,7 +104,7 @@ export class LessonService {
       throw new BadRequestException('Cannot update, lesson name is already used')
     }
 
-    const updatedLesson = await this.service.lesson.update({
+    return await this.service.lesson.update({
       data: {
         name,
         updatedAt: new Date(Date.now()),
@@ -122,7 +116,5 @@ export class LessonService {
         course: true,
       },
     })
-
-    return Promise.resolve(updatedLesson)
   }
 }

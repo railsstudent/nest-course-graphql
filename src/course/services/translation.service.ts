@@ -10,13 +10,14 @@ export class TranslationService {
       where: {
         id: languageId,
       },
+      rejectOnNotFound: true,
     })
   }
 
   constructor(private readonly service: PrismaService) {}
 
   async getTranslations(sentenceId: string): Promise<Translation[]> {
-    const translations = await this.service.translation.findMany({
+    return await this.service.translation.findMany({
       where: {
         sentenceId,
       },
@@ -30,11 +31,12 @@ export class TranslationService {
         sentence: true,
       },
     })
-    return Promise.resolve(translations)
   }
 
   async addTranslation(input: AddTranslationInput): Promise<Translation> {
     const { text, languageId, sentenceId } = input
+
+    await this.findLanguage(languageId)
 
     const sentence = await this.service.sentence.findUnique({
       where: {
@@ -45,11 +47,6 @@ export class TranslationService {
       },
       rejectOnNotFound: true,
     })
-
-    const language = await this.findLanguage(languageId)
-    if (!language) {
-      throw new NotFoundException('Language not found')
-    }
 
     const duplicatedLang = sentence.translations.some((translation) => translation?.languageId === languageId)
     if (duplicatedLang) {
@@ -63,7 +60,7 @@ export class TranslationService {
       throw new BadRequestException(`${duplTranslation?.text} is already added for language ${language?.name}`)
     }
 
-    const newTranslation = await this.service.translation.create({
+    return await this.service.translation.create({
       data: {
         text,
         languageId,
@@ -74,7 +71,6 @@ export class TranslationService {
         language: true,
       },
     })
-    return Promise.resolve(newTranslation)
   }
 
   async getLanguages(): Promise<Language[]> {
@@ -126,7 +122,7 @@ export class TranslationService {
       },
     })
 
-    if (language) {
+    if (language && language.id !== id) {
       const { name = '', nativeName = '' } = rest
       const pair = `${name}${name && nativeName ? '/' : ''}${nativeName}`
       throw new BadRequestException(`${pair} already exists`)

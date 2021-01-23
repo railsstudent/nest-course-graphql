@@ -8,7 +8,7 @@ export class CourseService {
   constructor(private readonly service: PrismaService) {}
 
   async getCourses(): Promise<Course[]> {
-    const courses = await this.service.course.findMany({
+    return await this.service.course.findMany({
       orderBy: [
         {
           name: 'asc',
@@ -18,12 +18,10 @@ export class CourseService {
         language: true,
       },
     })
-
-    return Promise.resolve(courses)
   }
 
   getCourse(id: string): Promise<Course> {
-    const course = this.service.course.findUnique({
+    return this.service.course.findUnique({
       where: {
         id,
       },
@@ -32,8 +30,6 @@ export class CourseService {
       },
       rejectOnNotFound: true,
     })
-
-    return Promise.resolve(course)
   }
 
   async addCourse(input: AddCourseInput): Promise<Course> {
@@ -56,7 +52,7 @@ export class CourseService {
       throw new BadRequestException('Course name is already used')
     }
 
-    const newCourse = await this.service.course.create({
+    return await this.service.course.create({
       data: {
         name,
         description,
@@ -66,20 +62,10 @@ export class CourseService {
         language: true,
       },
     })
-
-    return Promise.resolve(newCourse)
   }
 
   async updateCourse(input: UpdateCourseInput): Promise<Course> {
-    const { id, languageId = '', name = '', description = '' } = input
-
-    if (!languageId) {
-      throw new BadRequestException('Language is missing')
-    }
-
-    if (!name) {
-      throw new BadRequestException('Course name is missing')
-    }
+    const { id, ...rest } = input
 
     await this.service.course.findUnique({
       where: {
@@ -88,24 +74,22 @@ export class CourseService {
       rejectOnNotFound: true,
     })
 
-    const duplicatedCourse = this.service.course.findFirst({
+    const duplicatedCourse = await this.service.course.findFirst({
       where: {
-        name,
-        languageId,
+        ...rest,
       },
       include: {
         language: true,
       },
     })
 
-    if (duplicatedCourse) {
+    if (duplicatedCourse && duplicatedCourse.id !== id) {
       throw new BadRequestException(`Coure name is already used for ${duplicatedCourse?.language?.name}`)
     }
 
-    const updatedCourse = await this.service.course.update({
+    return await this.service.course.update({
       data: {
-        name,
-        description,
+        ...rest,
         updatedAt: new Date(Date.now()),
       },
       where: {
@@ -115,7 +99,5 @@ export class CourseService {
         language: true,
       },
     })
-
-    return Promise.resolve(updatedCourse)
   }
 }

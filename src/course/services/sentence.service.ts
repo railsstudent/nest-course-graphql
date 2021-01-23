@@ -7,7 +7,7 @@ export class SentenceService {
   constructor(private readonly service: PrismaService) {}
 
   async getSentences(lessonId: string): Promise<Sentence[]> {
-    const sentences = await this.service.sentence.findMany({
+    return await this.service.sentence.findMany({
       where: {
         lessonId,
       },
@@ -15,7 +15,5 @@ export class SentenceService {
         lesson: true,
       },
     })
-
-    return Promise.resolve(sentences)
   }
 }
