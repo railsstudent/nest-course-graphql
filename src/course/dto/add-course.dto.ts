@@ -6,5 +6,8 @@ export class AddCourseInput {
   name: string
 
   @Field(() => String)
+  description: string
+
+  @Field(() => String)
   languageId: string
 }

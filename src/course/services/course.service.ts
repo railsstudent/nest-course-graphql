@@ -1,61 +1,121 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { PrismaService } from 'src/prisma/prisma.service'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { AddCourseInput, UpdateCourseInput } from '../dto'
 import { Course } from '../entities'
 
 @Injectable()
 export class CourseService {
-  courses: Course[] = []
+  constructor(private readonly service: PrismaService) {}
 
-  getCourses(): Promise<Course[]> {
-    return Promise.resolve(this.courses)
+  async getCourses(): Promise<Course[]> {
+    const courses = await this.service.course.findMany({
+      orderBy: [
+        {
+          name: 'asc',
+        },
+      ],
+      include: {
+        language: true,
+      },
+    })
+
+    return Promise.resolve(courses)
   }
 
   getCourse(id: string): Promise<Course> {
-    const courses = this.courses.filter((course) => course.id === id)
-    if (courses.length <= 0) {
-      throw new NotFoundException(`Course ${id} does not exist`)
-    }
-    return Promise.resolve(courses[0])
+    const course = this.service.course.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        language: true,
+      },
+      rejectOnNotFound: true,
+    })
+
+    return Promise.resolve(course)
   }
 
-  addCourse(input: AddCourseInput): Promise<Course> {
-    const newCourse: Course = {
-      id: `${this.courses.length + 1}`,
-      name: input.name || '',
-      createdAt: new Date(Date.now()),
-      updatedAt: new Date(Date.now()),
-      language: {
-        id: '46fd0057-eeb7-4278-bf05-af1aa485d1f4',
-        name: 'Spanish',
-        nativeName: 'Español',
-        createdAt: new Date(1610559052972),
-        updatedAt: new Date(1610559052972),
+  async addCourse(input: AddCourseInput): Promise<Course> {
+    const { name, description, languageId } = input
+
+    await this.service.language.findUnique({
+      where: {
+        id: languageId,
       },
+      rejectOnNotFound: true,
+    })
+
+    const course = await this.service.course.findUnique({
+      where: {
+        name,
+      },
+    })
+
+    if (course) {
+      throw new BadRequestException('Course name is already used')
     }
-    this.courses.push(newCourse)
+
+    const newCourse = await this.service.course.create({
+      data: {
+        name,
+        description,
+        languageId,
+      },
+      include: {
+        language: true,
+      },
+    })
+
     return Promise.resolve(newCourse)
   }
 
-  updateCourse(input: UpdateCourseInput): Promise<Course> {
-    const { id, languageId = '', name = '' } = input
-    const course = this.courses.find((course) => course.id === id)
-    if (!course) {
-      throw new NotFoundException('Course is not found')
+  async updateCourse(input: UpdateCourseInput): Promise<Course> {
+    const { id, languageId = '', name = '', description = '' } = input
+
+    if (!languageId) {
+      throw new BadRequestException('Language is missing')
     }
 
-    const updatedCourse: Course = {
-      ...course,
-      name,
-      language: {
-        id: '46fd0057-eeb7-4278-bf05-af1aa485d1f4',
-        name: 'Spanish',
-        nativeName: 'Español',
-        createdAt: new Date(1610559052972),
-        updatedAt: new Date(1610559052972),
+    if (!name) {
+      throw new BadRequestException('Course name is missing')
+    }
+
+    await this.service.course.findUnique({
+      where: {
+        id,
       },
+      rejectOnNotFound: true,
+    })
+
+    const duplicatedCourse = this.service.course.findFirst({
+      where: {
+        name,
+        languageId,
+      },
+      include: {
+        language: true,
+      },
+    })
+
+    if (duplicatedCourse) {
+      throw new BadRequestException(`Coure name is already used for ${duplicatedCourse?.language?.name}`)
     }
 
-    this.courses = this.courses.map((course) => (course.id !== id ? course : updatedCourse))
+    const updatedCourse = await this.service.course.update({
+      data: {
+        name,
+        description,
+        updatedAt: new Date(Date.now()),
+      },
+      where: {
+        id,
+      },
+      include: {
+        language: true,
+      },
+    })
+
     return Promise.resolve(updatedCourse)
   }
 }

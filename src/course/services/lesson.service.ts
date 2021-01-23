@@ -5,7 +5,7 @@ import { Lesson } from '../entities'
 
 @Injectable()
 export class LessonService {
-  constructor(private service: PrismaService) {}
+  constructor(private readonly service: PrismaService) {}
 
   async getPaginatedLessons(args: GetLessonArgs): Promise<Lesson[]> {
     const { courseId, offset, limit } = args || {}

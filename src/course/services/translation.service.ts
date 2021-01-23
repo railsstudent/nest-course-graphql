@@ -13,7 +13,7 @@ export class TranslationService {
     })
   }
 
-  constructor(private service: PrismaService) {}
+  constructor(private readonly service: PrismaService) {}
 
   async getTranslations(sentenceId: string): Promise<Translation[]> {
     const translations = await this.service.translation.findMany({
