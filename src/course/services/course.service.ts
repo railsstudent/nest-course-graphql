@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { AddCourseInput, UpdateCourseInput } from '../dto'
 import { Course } from '../entities'
-import data from '../assets/courses.json'
 
 @Injectable()
 export class CourseService {
@@ -43,10 +42,6 @@ export class CourseService {
     if (!course) {
       throw new NotFoundException('Course is not found')
     }
-
-    // if (languageId) {
-
-    // }
 
     const updatedCourse: Course = {
       ...course,

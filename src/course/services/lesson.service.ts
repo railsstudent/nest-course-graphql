@@ -1,82 +1,128 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import { PrismaService } from 'src/prisma/prisma.service'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { AddLessonInput, GetLessonArgs, UpdateLessonInput } from '../dto'
-import { Course, Lesson } from '../entities'
-import data from '../assets/courses.json'
+import { Lesson } from '../entities'
 
 @Injectable()
 export class LessonService {
-  lessons: Lesson[] = []
+  constructor(private service: PrismaService) {}
 
-  courses: Course[] = []
-
-  getPaginatedLessons(args: GetLessonArgs): Promise<Lesson[]> {
+  async getPaginatedLessons(args: GetLessonArgs): Promise<Lesson[]> {
     const { courseId, offset, limit } = args || {}
 
-    const lessons = this.lessons
-      .filter((lesson) => lesson.course.id === courseId)
-      .sort((a, b) => {
-        const first = a.course.name.toLocaleLowerCase()
-        const second = b.course.name.toLocaleLowerCase()
-        return first.localeCompare(second)
-      })
-      .slice(offset * limit, limit * (offset + 1))
+    const lessons = await this.service.lesson.findMany({
+      where: {
+        courseId,
+      },
+      skip: offset * limit,
+      take: limit,
+      orderBy: [
+        {
+          name: 'asc',
+        },
+      ],
+      include: {
+        course: true,
+      },
+    })
+
     return Promise.resolve(lessons)
   }
 
-  getLesson(id: string): Promise<Lesson> {
-    const lessons = this.lessons.filter((lesson) => lesson.id === id)
-    if (lessons.length <= 0) {
-      throw new NotFoundException(`Lesson ${id} does not exist`)
-    }
-    return Promise.resolve(lessons[0])
+  async getLesson(id: string): Promise<Lesson> {
+    const lesson = await this.service.lesson.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        course: true,
+      },
+      rejectOnNotFound: true,
+    })
+
+    return Promise.resolve(lesson)
   }
 
-  addLesson(input: AddLessonInput): Promise<Lesson> {
+  async addLesson(input: AddLessonInput): Promise<Lesson> {
     const { name, courseId } = input
 
-    const course = this.courses.find((course) => course.id === courseId)
-    if (!course) {
-      throw new NotFoundException('Course not found')
-    }
+    await this.service.course.findUnique({
+      where: {
+        id: courseId,
+      },
+      rejectOnNotFound: true,
+    })
 
-    const isDuplicatedName = this.lessons.some((lesson) => lesson.name === name && lesson.course.id === courseId)
-    if (isDuplicatedName) {
+    const lesson = await this.service.lesson.findFirst({
+      where: {
+        name: {
+          equals: name,
+        },
+        courseId: {
+          equals: courseId,
+        },
+      },
+    })
+
+    if (lesson) {
       throw new BadRequestException('Lesson name is already used')
     }
 
-    const newLesson: Lesson = {
-      id: `${this.lessons.length + 1}`,
-      name: name || '',
-      createdAt: new Date(Date.now()),
-      updatedAt: new Date(Date.now()),
-      course,
-    }
-    this.lessons.push(newLesson)
+    const newLesson = await this.service.lesson.create({
+      data: {
+        name,
+        courseId,
+      },
+      include: {
+        course: true,
+      },
+    })
+
     return Promise.resolve(newLesson)
   }
 
-  updateLesson(input: UpdateLessonInput): Promise<Lesson> {
+  async updateLesson(input: UpdateLessonInput): Promise<Lesson> {
     const { id, name } = input
 
-    const existingLesson = this.lessons.find((lesson) => lesson.id === id)
-    if (!existingLesson) {
-      throw new NotFoundException('Lesson not found')
-    }
+    const existingLesson = await this.service.lesson.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        course: true,
+      },
+      rejectOnNotFound: true,
+    })
 
-    const existingCourseId = existingLesson?.course?.id || ''
-    const isDuplicatedName = this.lessons.some(
-      (lesson) => lesson.name === name && lesson.course.id === existingCourseId,
-    )
-    if (isDuplicatedName) {
+    const courseId = existingLesson?.course?.id || ''
+    const duplicatedLesson = await this.service.lesson.findFirst({
+      where: {
+        name: {
+          equals: name,
+        },
+        courseId: {
+          equals: courseId,
+        },
+      },
+    })
+
+    if (duplicatedLesson) {
       throw new BadRequestException('Cannot update, lesson name is already used')
     }
 
-    const updatedLesson: Lesson = {
-      ...existingLesson,
-      name,
-    }
+    const updatedLesson = await this.service.lesson.update({
+      data: {
+        name,
+        updatedAt: new Date(Date.now()),
+      },
+      where: {
+        id,
+      },
+      include: {
+        course: true,
+      },
+    })
 
-    this.lessons = this.lessons.map((lesson) => (lesson.id !== id ? lesson : updatedLesson))
     return Promise.resolve(updatedLesson)
   }
 }

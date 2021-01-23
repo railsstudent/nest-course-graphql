@@ -43,18 +43,16 @@ export class TranslationService {
       include: {
         translations: true,
       },
+      rejectOnNotFound: true,
     })
-    if (!sentence) {
-      throw new NotFoundException('Sentence not found')
-    }
 
     const language = await this.findLanguage(languageId)
     if (!language) {
       throw new NotFoundException('Language not found')
     }
 
-    const isDuplicatedLang = sentence.translations.some((translation) => translation?.languageId === languageId)
-    if (isDuplicatedLang) {
+    const duplicatedLang = sentence.translations.some((translation) => translation?.languageId === languageId)
+    if (duplicatedLang) {
       const language = await this.findLanguage(languageId)
       throw new BadRequestException(`Translation is already added for language ${language?.name}`)
     }
