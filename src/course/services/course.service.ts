@@ -84,7 +84,7 @@ export class CourseService {
     })
 
     if (duplicatedCourse && duplicatedCourse.id !== id) {
-      throw new BadRequestException(`Coure name is already used for ${duplicatedCourse?.language?.name}`)
+      throw new BadRequestException(`Course name/description is already used in ${duplicatedCourse?.language?.name}`)
     }
 
     return await this.service.course.update({
