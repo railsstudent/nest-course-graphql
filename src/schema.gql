@@ -74,6 +74,7 @@ type Query {
   course(id: String = ""): Course
   courses: [Course!]
   getLanguages: [Language!]!
+  getSentence(id: String = ""): Sentence!
   lesson(id: String = ""): Lesson
 }
 
@@ -88,7 +89,7 @@ type Sentence {
 """Translation model"""
 type Translation {
   id: ID!
-  language: Language!
+  language: Language
   sentence: Sentence
   text: String
 }

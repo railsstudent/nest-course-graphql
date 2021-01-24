@@ -1,4 +1,4 @@
-import { Args, Mutation, Parent, ResolveField, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { AddTranslationInput, AddSentenceInput, UpdateSentenceInput } from '../dto'
 import { Sentence, Translation } from '../entities'
 import { SentenceService, TranslationService } from '../services'
@@ -9,6 +9,11 @@ export class SentenceResolver {
     private readonly sentenceService: SentenceService,
     private readonly translationService: TranslationService,
   ) {}
+
+  @Query(() => Sentence)
+  async getSentence(@Args('id', { defaultValue: '', type: () => String }) id: string): Promise<Sentence> {
+    return await this.sentenceService.getSentence(id)
+  }
 
   @Mutation(() => Sentence)
   async addSentence(@Args('newSentence') input: AddSentenceInput): Promise<Sentence> {

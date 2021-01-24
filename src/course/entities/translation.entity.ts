@@ -14,8 +14,8 @@ export class Translation {
 
   updatedAt?: Date
 
-  @Field(() => Language)
-  language: Language
+  @Field(() => Language, { nullable: true })
+  language?: Language
 
   @Field(() => Sentence, { nullable: true })
   sentence?: Sentence

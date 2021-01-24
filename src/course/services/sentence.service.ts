@@ -107,4 +107,20 @@ export class SentenceService {
       },
     })
   }
+
+  async getSentence(sentenceId: string): Promise<Sentence> {
+    return await this.service.sentence.findUnique({
+      where: {
+        id: sentenceId,
+      },
+      include: {
+        lesson: true,
+        translations: {
+          include: {
+            language: true,
+          },
+        },
+      },
+    })
+  }
 }
