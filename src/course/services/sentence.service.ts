@@ -104,6 +104,11 @@ export class SentenceService {
       },
       include: {
         lesson: true,
+        translations: {
+          include: {
+            language: true,
+          },
+        },
       },
     })
   }

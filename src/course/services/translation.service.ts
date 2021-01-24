@@ -109,12 +109,7 @@ export class TranslationService {
   async updateLanguage(input: UpdateLanguageInput): Promise<Language> {
     const { id, ...rest } = input
 
-    await this.service.language.findUnique({
-      where: {
-        id,
-      },
-      rejectOnNotFound: true,
-    })
+    await this.findLanguage(id)
 
     const language = await this.service.language.findFirst({
       where: {
