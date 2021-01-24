@@ -51,13 +51,13 @@ export class TranslationService {
     const duplicatedLang = sentence.translations.some((translation) => translation?.languageId === languageId)
     if (duplicatedLang) {
       const language = await this.findLanguage(languageId)
-      throw new BadRequestException(`Translation is already added for language ${language?.name}`)
+      throw new BadRequestException(`${language?.name} translation already exists`)
     }
 
     const duplTranslation = sentence.translations.find((translation) => translation?.text === text)
     if (duplTranslation) {
       const language = await this.findLanguage(duplTranslation.languageId)
-      throw new BadRequestException(`${duplTranslation?.text} is already added for language ${language?.name}`)
+      throw new BadRequestException(`${duplTranslation?.text} is ${language?.name} translation`)
     }
 
     return await this.service.translation.create({

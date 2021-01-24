@@ -18,6 +18,11 @@ input AddLessonInput {
   name: String!
 }
 
+input AddSentenceInput {
+  lessonId: String!
+  text: String!
+}
+
 input AddTranslationInput {
   languageId: String!
   sentenceId: String!
@@ -52,10 +57,12 @@ type Mutation {
   addCourse(newCourse: AddCourseInput!): Course!
   addLanguage(newLanguage: AddLanguageInput!): Language!
   addLesson(newLesson: AddLessonInput!): Lesson!
+  addSentence(newSentence: AddSentenceInput!): Sentence!
   addTranslation(newTranslation: AddTranslationInput!): Translation!
   updateCourse(course: UpdateCourseInput!): Course!
   updateLanguage(updateLanguage: UpdateLanguageInput!): Language!
   updateLesson(lesson: UpdateLessonInput!): Lesson!
+  updateSentence(updateSentence: UpdateSentenceInput!): Sentence!
 }
 
 input PaginationArgs {
@@ -103,4 +110,10 @@ input UpdateLessonInput {
   courseId: String
   id: ID!
   name: String
+}
+
+input UpdateSentenceInput {
+  id: ID!
+  lessonId: String
+  text: String
 }

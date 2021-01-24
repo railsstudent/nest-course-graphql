@@ -1,6 +1,6 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { AddLanguageInput, AddTranslationInput, UpdateLanguageInput } from '../dto'
-import { Language, Sentence, Translation } from '../entities'
+import { AddLanguageInput, UpdateLanguageInput } from '../dto'
+import { Language, Sentence } from '../entities'
 import { TranslationService } from '../services'
 
 @Resolver(() => Sentence)
@@ -20,10 +20,5 @@ export class TranslationResolver {
   @Mutation(() => Language)
   async updateLanguage(@Args('updateLanguage') input: UpdateLanguageInput): Promise<Language> {
     return await this.translationService.updateLanguage(input)
-  }
-
-  @Mutation(() => Translation)
-  async addTranslation(@Args('newTranslation') input: AddTranslationInput): Promise<Translation> {
-    return await this.translationService.addTranslation(input)
   }
 }
