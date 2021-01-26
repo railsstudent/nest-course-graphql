@@ -6,15 +6,6 @@ import { UniqueHelper } from './unique.helper'
 
 @Injectable()
 export class TranslationService {
-  private async findLanguage(languageId: string) {
-    return await this.service.language.findUnique({
-      where: {
-        id: languageId,
-      },
-      rejectOnNotFound: true,
-    })
-  }
-
   constructor(private readonly service: PrismaService, private readonly uniqueHelper: UniqueHelper) {}
 
   async getTranslations(sentenceId: string): Promise<Translation[]> {
