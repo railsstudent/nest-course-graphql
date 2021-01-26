@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { PrismaService } from '../../prisma'
 import { Language, Translation } from '../entities'
 import { AddLanguageInput, AddTranslationInput, UpdateLanguageInput } from '../dto'
+import { UniqueHelper } from './unique.helper'
 
 @Injectable()
 export class TranslationService {
@@ -14,7 +15,7 @@ export class TranslationService {
     })
   }
 
-  constructor(private readonly service: PrismaService) {}
+  constructor(private readonly service: PrismaService, private readonly uniqueHelper: UniqueHelper) {}
 
   async getTranslations(sentenceId: string): Promise<Translation[]> {
     return await this.service.translation.findMany({
@@ -36,7 +37,7 @@ export class TranslationService {
   async addTranslation(input: AddTranslationInput): Promise<Translation> {
     const { text, languageId, sentenceId } = input
 
-    await this.findLanguage(languageId)
+    await this.uniqueHelper.findUniqueLanguage({ id: languageId }, true)
 
     const sentence = await this.service.sentence.findUnique({
       where: {
@@ -50,13 +51,13 @@ export class TranslationService {
 
     const duplicatedLang = sentence.translations.some((translation) => translation?.languageId === languageId)
     if (duplicatedLang) {
-      const language = await this.findLanguage(languageId)
+      const language = await this.uniqueHelper.findUniqueLanguage({ id: languageId }, true)
       throw new BadRequestException(`${language?.name} translation already exists`)
     }
 
     const duplTranslation = sentence.translations.find((translation) => translation?.text === text)
     if (duplTranslation) {
-      const language = await this.findLanguage(duplTranslation.languageId)
+      const language = await this.uniqueHelper.findUniqueLanguage({ id: duplTranslation.languageId }, true)
       throw new BadRequestException(`${duplTranslation?.text} is ${language?.name} translation`)
     }
 
@@ -109,7 +110,7 @@ export class TranslationService {
   async updateLanguage(input: UpdateLanguageInput): Promise<Language> {
     const { id, ...rest } = input
 
-    await this.findLanguage(id)
+    await this.uniqueHelper.findUniqueLanguage({ id }, true)
 
     const language = await this.service.language.findFirst({
       where: {

@@ -2,10 +2,11 @@ import { PrismaService } from 'src/prisma/prisma.service'
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { AddLessonInput, GetLessonArgs, UpdateLessonInput } from '../dto'
 import { Lesson } from '../entities'
+import { UniqueHelper } from './unique.helper'
 
 @Injectable()
 export class LessonService {
-  constructor(private readonly service: PrismaService) {}
+  constructor(private readonly service: PrismaService, private readonly uniqueHelper: UniqueHelper) {}
 
   async getPaginatedLessons(args: GetLessonArgs): Promise<Lesson[]> {
     const { courseId, offset, limit } = args || {}
@@ -42,12 +43,7 @@ export class LessonService {
   async addLesson(input: AddLessonInput): Promise<Lesson> {
     const { name, courseId } = input
 
-    await this.service.course.findUnique({
-      where: {
-        id: courseId,
-      },
-      rejectOnNotFound: true,
-    })
+    await this.uniqueHelper.findUniqueCourse({ id: courseId }, null, true)
 
     const lesson = await this.service.lesson.findFirst({
       where: {

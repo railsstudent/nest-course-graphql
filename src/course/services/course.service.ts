@@ -2,10 +2,11 @@ import { PrismaService } from 'src/prisma/prisma.service'
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { AddCourseInput, UpdateCourseInput } from '../dto'
 import { Course } from '../entities'
+import { UniqueHelper } from './unique.helper'
 
 @Injectable()
 export class CourseService {
-  constructor(private readonly service: PrismaService) {}
+  constructor(private readonly service: PrismaService, private readonly uniqueHelper: UniqueHelper) {}
 
   async getCourses(): Promise<Course[]> {
     return await this.service.course.findMany({
@@ -21,33 +22,15 @@ export class CourseService {
   }
 
   getCourse(id: string): Promise<Course> {
-    return this.service.course.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        language: true,
-      },
-      rejectOnNotFound: true,
-    })
+    return this.uniqueHelper.findUniqueCourse({ id }, { language: true }, true)
   }
 
   async addCourse(input: AddCourseInput): Promise<Course> {
     const { name, description, languageId } = input
 
-    await this.service.language.findUnique({
-      where: {
-        id: languageId,
-      },
-      rejectOnNotFound: true,
-    })
+    await this.uniqueHelper.findUniqueLanguage({ id: languageId }, true)
 
-    const course = await this.service.course.findUnique({
-      where: {
-        name,
-      },
-    })
-
+    const course = await this.uniqueHelper.findUniqueCourse({ name }, null, false)
     if (course) {
       throw new BadRequestException('Course name is already used')
     }
@@ -67,12 +50,7 @@ export class CourseService {
   async updateCourse(input: UpdateCourseInput): Promise<Course> {
     const { id, ...rest } = input
 
-    await this.service.course.findUnique({
-      where: {
-        id,
-      },
-      rejectOnNotFound: true,
-    })
+    await this.uniqueHelper.findUniqueCourse({ id }, null, true)
 
     const duplicatedCourse = await this.service.course.findFirst({
       where: {
