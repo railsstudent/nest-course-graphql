@@ -24,4 +24,11 @@ export class UniqueHelper {
       rejectOnNotFound,
     })
   }
+
+  async findUniqueLesson(where: Prisma.lessonWhereUniqueInput, rejectOnNotFound = false) {
+    return await this.service.lesson.findUnique({
+      where,
+      rejectOnNotFound,
+    })
+  }
 }

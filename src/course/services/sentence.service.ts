@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
-import { createJSDocReturnTag } from 'typescript'
 import { PrismaService } from '../../prisma'
 import { AddSentenceInput, UpdateSentenceInput } from '../dto'
 import { Lesson, Sentence } from '../entities'
+import { UniqueHelper } from './unique.helper'
 
 @Injectable()
 export class SentenceService {
@@ -15,12 +15,12 @@ export class SentenceService {
     })
   }
 
-  constructor(private readonly service: PrismaService) {}
+  constructor(private readonly service: PrismaService, private uniqueHelper: UniqueHelper) {}
 
   async addSentence(input: AddSentenceInput): Promise<Sentence> {
     const { text, lessonId } = input
 
-    const lesson = await this.findLesson(lessonId)
+    const lesson = await this.uniqueHelper.findUniqueLesson({ id: lessonId }, true)
     const sentence = await this.service.sentence.findFirst({
       where: {
         text,
@@ -48,7 +48,7 @@ export class SentenceService {
     const { id, ...rest } = input
 
     if (rest.lessonId) {
-      await this.findLesson(rest.lessonId)
+      await this.uniqueHelper.findUniqueLesson({ id: rest.lessonId }, true)
     }
 
     await this.service.sentence.findUnique({
