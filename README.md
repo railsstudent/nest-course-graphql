@@ -312,7 +312,6 @@ mutation NewTranslation {
     language {
       id
       name
-      nativeName
     }
   }
 }
@@ -347,6 +346,13 @@ https://www.prisma.io/docs/reference/api-reference/command-reference
 ## Prisma Quick Start TypeScript
 
 https://www.prisma.io/docs/getting-started/quickstart-typescript
+
+## Nice to have features
+
+- Authentication
+- Deploy to Heroku
+- Swagger API documentation
+- GraphQL unit tests
 
 ## License
 
