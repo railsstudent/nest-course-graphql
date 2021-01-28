@@ -208,6 +208,108 @@ mutation updateCourse {
 }
 ```
 
+### Lesson API
+
+```
+Get Lesson
+query SpanishGreetingLesson {
+  lesson(id: "6cadde28-ac00-4a7c-a7f3-afd1bea5ca25") {
+    id
+    name
+    course {
+      id
+      name
+      description
+    }
+    sentences {
+      id
+      text
+      translations {
+        id
+        text
+      }
+    }
+  }
+}
+
+Add Lesson
+mutation addSpanishLesson {
+  addLesson(
+    newLesson: {
+      name: "Months"
+      courseId: "f4018104-08d3-45cc-8bfc-1c2b1a0f8c41"
+    }
+  ) {
+    id
+    name
+  }
+}
+
+Update Lesson
+mutation updateLesson {
+  updateLesson(
+    lesson: { name: "Nature", id: "e6648184-49ee-42d7-95bb-6a27db816dab" }
+  ) {
+    id
+    name
+  }
+}
+```
+
+### Sentence API
+
+```
+Get Sentence
+query getSentence {
+  getSentence(id:"5572195e-93ec-4d65-a141-3d35e6dd9705") {
+    id
+    text
+    lesson {
+      id
+      name
+    }
+    translations{
+      id
+      text
+      language {
+        id
+        name
+        nativeName
+      }
+    }
+  }
+}
+
+Add Sentence
+mutation addSentence {
+  addSentence(newSentence:{
+    text:"Ellas son niñas",
+    lessonId:"73f47aa8-0e2a-49dd-a21b-23b0eca4ccbd"}) {
+    id
+    text
+    lesson {
+      id
+      name
+    }
+  }
+}
+
+Update Sentence
+mutation updateSentence {
+  updateSentence(updateSentence:{
+    id: "38b9a04e-bf9d-4864-8bcb-8ee2323a49bd",
+    text:"Ellos son hombres",
+    lessonId:"73f47aa8-0e2a-49dd-a21b-23b0eca4ccbd"}) {
+    id
+    text
+    lesson {
+      id
+      name
+    }
+  }
+}
+```
+
 ## NestJS GrapQL Example repo
 
 ```
