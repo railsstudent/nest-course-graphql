@@ -43,12 +43,6 @@ $ npm run test:cov
 http://localhost:3000/graphql
 ```
 
-## NestJS GrapQL Example repo
-
-```
-https://github.com/nestjs/nest/tree/master/sample/23-graphql-code-first
-```
-
 ## PostgreSQL Database
 
 ```
@@ -64,6 +58,70 @@ Password: postgres
 Browser: http://localhost:5050
 Username: pgadmin4@pgadmin.org
 Password: pgadmin
+```
+
+## Set up Prisma
+
+### Install Prisma
+
+```
+npx prisma
+```
+
+### Initialize Prisma
+
+```
+npx prisma init
+```
+
+### Generate Prisma Client
+
+```
+npx prisma generate
+
+Prisma models can be found in node_modules/.prisma/client/schema.prisma
+```
+
+### Create Prisma migration script
+
+```
+npx prisma migrate dev --create-only --preview-feature
+
+New script is generated in prisma/migrations folder
+```
+
+### Apply Prisma migration script
+
+```
+npx prisma migrate deploy --preview-feature
+```
+
+### Populate seed data in the database
+
+Install typescript and ts-node
+
+```
+npm i --save-dev typescript ts-node
+```
+
+Run typescript script to populate data
+
+```
+ts-node scripts/seed.ts
+```
+
+## GraphQL API
+
+### Add Language
+
+```
+
+```
+
+## NestJS GrapQL Example repo
+
+```
+https://github.com/nestjs/nest/tree/master/sample/23-graphql-code-first
 ```
 
 ## Prisma CLI command
