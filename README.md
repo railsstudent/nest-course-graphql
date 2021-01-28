@@ -112,10 +112,100 @@ ts-node scripts/seed.ts
 
 ## GraphQL API
 
-### Add Language
+### Language API
 
 ```
+Get Language
+query Languages {
+  getLanguages {
+    id
+    name
+    nativeName
+  }
+}
 
+Add Language
+mutation NewFrenchLanguage {
+  addLanguage(newLanguage:{ name: "French", nativeName:"Français"}) {
+    id
+    name
+    nativeName
+  }
+}
+
+Update Language
+mutation UpdateLanguage {
+	updateLanguage(updateLanguage:{
+    id:"7424c53b-1b44-4065-ad1f-f179b64c8aae",
+    name:"Italian", nativeName:"Italiano"}) {
+    id
+    name
+    nativeName
+  }
+}
+```
+
+### Course API
+
+```
+Get Courses
+query AllCourses {
+  courses {
+    id
+    name
+    description
+    lessons(args: { offset: 0, limt: 3 }) {
+      id
+      name
+    }
+  }
+}
+
+Get Course
+query Course {
+  course(id:"c4b7db78-ccc3-4882-b767-e2c98feaa08f") {
+    id
+    name
+    description
+    language {
+      id
+      name
+      nativeName
+    }
+    lessons (args: { offset: 0, limt: 3 } ) {
+      id
+      name
+    }
+  }
+}
+
+Add Course
+mutation addCourse {
+  addCourse(newCourse:{
+    name: "Spanish 103",
+    languageId: "69883305-b9fa-44ef-a118-5eb6087ab815",
+    description: "Spanish course beginner level 3" }) {
+   	id
+  	name
+  }
+}
+
+Update Course
+mutation updateCourse {
+  updateCourse(course:{ id: "c4b7db78-ccc3-4882-b767-e2c98feaa08f",
+    name:"Spanish 201"
+    description:"Spanish course intermediate level"
+    languageId: "69883305-b9fa-44ef-a118-5eb6087ab815"}) {
+    id
+    name
+    description
+    language {
+      id
+      name
+      nativeName
+    }
+  }
+}
 ```
 
 ## NestJS GrapQL Example repo
