@@ -268,15 +268,6 @@ query getSentence {
       id
       name
     }
-    translations{
-      id
-      text
-      language {
-        id
-        name
-        nativeName
-      }
-    }
   }
 }
 
@@ -305,6 +296,39 @@ mutation updateSentence {
     lesson {
       id
       name
+    }
+  }
+}
+
+Add new translation to a sentence
+mutation NewTranslation {
+  addTranslation (newTranslation:{
+    languageId:"7424c53b-1b44-4065-ad1f-f179b64c8aae",
+    sentenceId:"38b9a04e-bf9d-4864-8bcb-8ee2323a49bd",
+    text: "They are men"
+  }) {
+    id
+    text
+    language {
+      id
+      name
+      nativeName
+    }
+  }
+}
+
+Get all translations of a sentence
+query getSentence {
+  getSentence(id:"5572195e-93ec-4d65-a141-3d35e6dd9705") {
+    id
+    text
+    translations{
+      id
+      text
+      language {
+        id
+        name
+      }
     }
   }
 }
