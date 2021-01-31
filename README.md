@@ -161,6 +161,24 @@ query AllCourses {
   }
 }
 
+Get Courses with variable
+query AllCourses2 ($args: PaginationArgs!) {
+  courses {
+    id
+    name
+    description
+    language {
+      id
+      name
+      nativeName
+    }
+    lessons(args: $args) {
+      id
+      name
+    }
+  }
+}
+
 Get Course
 query Course {
   course(id:"c4b7db78-ccc3-4882-b767-e2c98feaa08f") {
