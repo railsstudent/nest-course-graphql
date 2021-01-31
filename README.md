@@ -179,6 +179,14 @@ query AllCourses2 ($args: PaginationArgs!) {
   }
 }
 
+Paramter
+{
+  "args": {
+    "offset": 0,
+    "limit": 1
+  }
+}
+
 Get Course
 query Course {
   course(id:"c4b7db78-ccc3-4882-b767-e2c98feaa08f") {
@@ -364,6 +372,10 @@ https://www.prisma.io/docs/reference/api-reference/command-reference
 ## Prisma Quick Start TypeScript
 
 https://www.prisma.io/docs/getting-started/quickstart-typescript
+
+## Complete Graphql playground
+
+https://blog.logrocket.com/complete-guide-to-graphql-playground/
 
 ## Nice to have features
 
