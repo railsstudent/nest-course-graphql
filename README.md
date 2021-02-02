@@ -357,6 +357,29 @@ query getSentence {
     }
   }
 }
+
+Get available translations
+query getSentence2 {
+  getSentence(id:"5572195e-93ec-4d65-a141-3d35e6dd9705") {
+    id
+    text
+    availableTranslations {
+      id
+      name
+    }
+  }
+}
+```
+
+### Translation API
+
+```
+query getTranslationByLanguage {
+	getTranslation(sentenceId:"14cef88e-ebd3-4565-bb40-6d4bd9856a17", languageName:"Chinese") {
+    id
+    text
+  }
+}
 ```
 
 ## NestJS GrapQL Example repo

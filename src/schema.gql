@@ -75,11 +75,13 @@ type Query {
   courses: [Course!]
   getLanguages: [Language!]!
   getSentence(id: String = ""): Sentence!
+  getTranslation(languageName: String!, sentenceId: String!): Translation!
   lesson(id: String = ""): Lesson
 }
 
 """Sentence model"""
 type Sentence {
+  availableTranslations: [Language!]
   id: ID!
   lesson: Lesson
   text: String

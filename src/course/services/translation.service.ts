@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { PrismaService } from '../../prisma'
 import { Language, Translation } from '../entities'
 import { AddLanguageInput, AddTranslationInput, UpdateLanguageInput } from '../dto'
@@ -153,5 +153,16 @@ export class TranslationService {
 
     const languages: Language[] = translations.map((translation) => translation.language)
     return languages
+  }
+
+  async getTranslation(sentenceId: string, languageName: string): Promise<Translation> {
+    return await this.service.translation.findFirst({
+      where: {
+        sentenceId,
+        language: {
+          name: languageName,
+        },
+      },
+    })
   }
 }

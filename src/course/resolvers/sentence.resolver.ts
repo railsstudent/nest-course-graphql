@@ -30,13 +30,13 @@ export class SentenceResolver {
     return await this.translationService.addTranslation(input)
   }
 
-  @ResolveField()
+  @ResolveField(() => [Translation])
   async translations(@Parent() sentence: Sentence): Promise<Translation[]> {
     return await this.translationService.getTranslations(sentence?.id || '')
   }
 
-  @ResolveField()
-  async avalableTranslations(@Parent() sentence: Sentence): Promise<Language[]> {
+  @ResolveField(() => [Language])
+  async availableTranslations(@Parent() sentence: Sentence): Promise<Language[]> {
     return await this.translationService.getAvailableTranslations(sentence?.id || '')
   }
 }
