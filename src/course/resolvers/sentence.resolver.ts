@@ -1,6 +1,6 @@
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
 import { AddTranslationInput, AddSentenceInput, UpdateSentenceInput } from '../dto'
-import { Sentence, Translation } from '../entities'
+import { Language, Sentence, Translation } from '../entities'
 import { SentenceService, TranslationService } from '../services'
 
 @Resolver(() => Sentence)
@@ -32,7 +32,11 @@ export class SentenceResolver {
 
   @ResolveField()
   async translations(@Parent() sentence: Sentence): Promise<Translation[]> {
-    const sentenceId = sentence?.id || ''
-    return await this.translationService.getTranslations(sentenceId)
+    return await this.translationService.getTranslations(sentence?.id || '')
+  }
+
+  @ResolveField()
+  async avalableTranslations(@Parent() sentence: Sentence): Promise<Language[]> {
+    return await this.translationService.getAvailableTranslations(sentence?.id || '')
   }
 }

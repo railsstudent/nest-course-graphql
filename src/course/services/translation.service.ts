@@ -135,4 +135,23 @@ export class TranslationService {
       },
     })
   }
+
+  async getAvailableTranslations(sentenceId: string): Promise<Language[]> {
+    const translations = await this.service.translation.findMany({
+      where: {
+        sentenceId,
+      },
+      include: {
+        language: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    })
+
+    const languages: Language[] = translations.map((translation) => translation.language)
+    return languages
+  }
 }
