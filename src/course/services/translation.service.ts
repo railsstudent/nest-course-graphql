@@ -155,13 +155,11 @@ export class TranslationService {
     return languages
   }
 
-  async getTranslation(sentenceId: string, languageName: string): Promise<Translation> {
+  async getTranslation(sentenceId: string, languageId: string): Promise<Translation> {
     return await this.service.translation.findFirst({
       where: {
         sentenceId,
-        language: {
-          name: languageName,
-        },
+        languageId,
       },
     })
   }

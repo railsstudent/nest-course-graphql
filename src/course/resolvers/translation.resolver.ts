@@ -10,9 +10,9 @@ export class TranslationResolver {
   @Query(() => Translation)
   async getTranslation(
     @Args('sentenceId') sentenceId: string,
-    @Args('languageName') languageName: string,
+    @Args('languageId') languageId: string,
   ): Promise<Translation> {
-    return await this.translationService.getTranslation(sentenceId, languageName)
+    return await this.translationService.getTranslation(sentenceId, languageId)
   }
 
   @Query(() => [Language])
