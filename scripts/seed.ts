@@ -251,7 +251,7 @@ const GenderSentences = [
     translations: [
       {
         lang: TRANS_LANG.ENG,
-        text: 'Good morning'
+        text: 'She is a woman'
       },
       {
         lang: TRANS_LANG.POR,
