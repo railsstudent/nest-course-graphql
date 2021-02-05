@@ -389,11 +389,21 @@ async function main() {
   const spanishCourse = await prisma.course.create({
       data: {
           name: 'Spanish 101',
-          description: 'Spanish course beginner level',
+          description: 'First Spanish course for beginners',
           createdAt:  new Date(Date.now()),
           updatedAt: new Date(Date.now()),
           languageId: spanish.id
       }
+  })
+
+  await prisma.course.create({
+    data: {
+        name: 'Spanish 102',
+        description: 'Second Spanish course for beginners Part 2',
+        createdAt:  new Date(Date.now()),
+        updatedAt: new Date(Date.now()),
+        languageId: spanish.id
+    }
   })
   console.log('Insert courses - done')
 
