@@ -26,7 +26,6 @@ export class SentenceService {
         text,
         lessonId,
       },
-      rejectOnNotFound: true,
     })
 
     if (sentence) {
