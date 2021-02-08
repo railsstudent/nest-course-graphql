@@ -34,7 +34,11 @@ export class LessonService {
         id,
       },
       include: {
-        course: true,
+        course: {
+          include: {
+            language: true,
+          },
+        },
       },
       rejectOnNotFound: true,
     })
