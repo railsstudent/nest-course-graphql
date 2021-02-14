@@ -29,4 +29,9 @@ export class TranslationResolver {
   async updateLanguage(@Args('updateLanguage') input: UpdateLanguageInput): Promise<Language> {
     return await this.translationService.updateLanguage(input)
   }
+
+  @Mutation(() => Translation)
+  async deleteTranslation(@Args('id') translationId: string): Promise<Translation> {
+    return await this.translationService.deleteTranslation(translationId)
+  }
 }

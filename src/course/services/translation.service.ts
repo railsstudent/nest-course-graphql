@@ -163,4 +163,24 @@ export class TranslationService {
       },
     })
   }
+
+  async deleteTranslation(translationId: string): Promise<Translation> {
+    return await this.service.translation.delete({
+      where: {
+        id: translationId,
+      },
+      include: {
+        language: {
+          select: {
+            id: true,
+          },
+        },
+        sentence: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    })
+  }
 }
