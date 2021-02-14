@@ -161,25 +161,29 @@ export class TranslationService {
         sentenceId,
         languageId,
       },
+      include: {
+        language: true,
+      },
     })
   }
 
   async deleteTranslation(translationId: string): Promise<Translation> {
+    const count = await this.service.translation.count({
+      where: {
+        id: translationId,
+      },
+    })
+
+    if (count <= 0) {
+      throw new BadRequestException(`Translaton id ${translationId} does not exist`)
+    }
+
     return await this.service.translation.delete({
       where: {
         id: translationId,
       },
       include: {
-        language: {
-          select: {
-            id: true,
-          },
-        },
-        sentence: {
-          select: {
-            id: true,
-          },
-        },
+        language: true,
       },
     })
   }
