@@ -49,7 +49,7 @@ export class TranslationService {
     const duplTranslation = sentence.translations.find((translation) => translation?.text === text)
     if (duplTranslation) {
       const language = await this.uniqueHelper.findUniqueLanguage({ id: duplTranslation.languageId }, true)
-      throw new BadRequestException(`${duplTranslation?.text} is ${language?.name} translation`)
+      throw new BadRequestException(`${duplTranslation?.text} is found in ${language?.name} translation`)
     }
 
     return await this.service.translation.create({
