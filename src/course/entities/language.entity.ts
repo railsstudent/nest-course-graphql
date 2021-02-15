@@ -11,6 +11,9 @@ export class Language {
   @Field(() => String, { nullable: true })
   nativeName?: string
 
+  @Field(() => String, { nullable: true })
+  fullname?: string
+
   createdAt?: Date
 
   updatedAt?: Date
