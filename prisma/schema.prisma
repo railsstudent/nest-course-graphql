@@ -43,12 +43,14 @@ model lesson {
 
 model sentence {
   id          String        @id @default(uuid())
-  text        String?       @unique
+  text        String?       
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @default(now())
   lessonId    String
   lesson      lesson        @relation(fields: [lessonId], references: [id])
   translations translation[]
+
+  @@unique([text, lessonId], name: "sentence_text_lesson_key")
 }
 
 model translation {
