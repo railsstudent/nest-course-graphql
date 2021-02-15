@@ -6,8 +6,8 @@ import {
   AddLanguageInput,
   UpdateLanguageInput,
 } from '../dto'
-import { Language, Sentence, Translation } from '../entities'
-import { SentenceService, TranslationService } from '../services'
+import { Language } from '../entities'
+import { TranslationService } from '../services'
 
 @Resolver(() => Language)
 export class LanguageResolver {
