@@ -7,25 +7,23 @@ const insertSetnences = async (sentences: SentenceTranslation[], lessonId: strin
   for (const sentence of sentences) {
     const newSentence = await prisma.sentence.create({
         data: {
-            text: sentence.text,
-            lessonId,
-            createdAt:  new Date(Date.now()),
-            updatedAt: new Date(Date.now()),    
+          text: sentence.text,
+          lessonId,
         }
     })
 
-    for (const translation of sentence.translations) {
+    const translations = sentence.translations.map(translation => {
       const { id: languageId } = newLanguages.find(lang => lang.name === translation.lang)
-      await prisma.translation.create({
-        data: {
-            text: translation.text,
-            languageId,
-            sentenceId: newSentence.id,
-            createdAt:  new Date(Date.now()),
-            updatedAt: new Date(Date.now()),    
-        }
-      })
-    }
+      return {
+        text: translation.text,
+        languageId,
+        sentenceId: newSentence.id,
+      }
+    })
+
+    await prisma.translation.createMany({
+      data: translations
+    })
   } 
 }
 
@@ -41,12 +39,10 @@ async function main() {
   const newLanguages: Language[] = []
   for (const language of AvailableLanguages) {
       const newLanguage = await prisma.language.create({
-          data: {
-              name: language.name,
-              nativeName: language.nativeName,
-              createdAt:  new Date(Date.now()),
-              updatedAt: new Date(Date.now())
-          }
+        data: {
+          name: language.name,
+          nativeName: language.nativeName,
+        }
       })
       newLanguages.push(newLanguage)
   }
@@ -56,11 +52,9 @@ async function main() {
   const spanish = newLanguages.find(lang => lang.name === 'Spanish')
   const spanishCourse = await prisma.course.create({
       data: {
-          name: 'Spanish 101',
-          description: 'First Spanish course for beginners',
-          createdAt:  new Date(Date.now()),
-          updatedAt: new Date(Date.now()),
-          languageId: spanish.id
+        name: 'Spanish 101',
+        description: 'First Spanish course for beginners',
+        languageId: spanish.id
       }
   })
 
@@ -68,58 +62,29 @@ async function main() {
     data: {
         name: 'Spanish 102',
         description: 'Second Spanish course for beginners',
-        createdAt:  new Date(Date.now()),
-        updatedAt: new Date(Date.now()),
         languageId: spanish.id
     }
   })
   console.log('Insert courses - done')
 
   console.log('Insert lessons - start')
-  const introductionLesson = await prisma.lesson.create({
-      data: {
-          name: 'Greeting',
-          createdAt:  new Date(Date.now()),
-          updatedAt: new Date(Date.now()),
-          courseId: spanishCourse.id
-      }
-  })
+  const createLessonPromises = ['Greeting', 'Gender', 'Introduction', 'Activity', 'Description of persons'].map(
+    async (name, index) => 
+      await prisma.lesson.create({
+        data: {
+          name,
+          courseId: index < 3 ? spanishCourse.id : spanishCourse2.id    
+        }
+      })
+  )
 
-  const genderLesson = await prisma.lesson.create({
-    data: {
-        name: 'Gender',
-        createdAt:  new Date(Date.now()),
-        updatedAt: new Date(Date.now()),
-        courseId: spanishCourse.id
-    }
-  })
-
-  const introLesson = await prisma.lesson.create({
-    data: {
-        name: 'Introduction',
-        createdAt:  new Date(Date.now()),
-        updatedAt: new Date(Date.now()),
-        courseId: spanishCourse.id
-    }
-  })
-
-  const activityLesson = await prisma.lesson.create({
-    data: {
-        name: 'Activity',
-        createdAt:  new Date(Date.now()),
-        updatedAt: new Date(Date.now()),
-        courseId: spanishCourse2.id
-    }
-  })
-
-  const descriptionLesson = await prisma.lesson.create({
-    data: {
-        name: 'Description of persons',
-        createdAt:  new Date(Date.now()),
-        updatedAt: new Date(Date.now()),
-        courseId: spanishCourse2.id
-    }
-  })
+  const [
+    introductionLesson, 
+    genderLesson, 
+    introLesson, 
+    activityLesson, 
+    descriptionLesson
+  ] = await Promise.all(createLessonPromises)
   console.log('Insert lessons - done')
 
   console.log('Insert sentences - start')
@@ -128,7 +93,6 @@ async function main() {
   await insertSetnences(IntroSentences, introLesson.id, newLanguages)
   await insertSetnences(ActivitySentences, activityLesson.id, newLanguages)
   await insertSetnences(DescriptionSentences, descriptionLesson.id, newLanguages)
-
   console.log('Insert sentences - end')
 }
 

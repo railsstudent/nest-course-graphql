@@ -1,11 +1,5 @@
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
-import {
-  AddTranslationInput,
-  AddSentenceInput,
-  UpdateSentenceInput,
-  AddLanguageInput,
-  UpdateLanguageInput,
-} from '../dto'
+import { AddLanguageInput, UpdateLanguageInput } from '../dto'
 import { Language } from '../entities'
 import { TranslationService } from '../services'
 
