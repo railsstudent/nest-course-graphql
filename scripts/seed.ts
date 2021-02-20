@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client' 
 import { Language } from '../src/course/entities/language.entity';
-import { SentenceTranslation, GreetingSentences, GenderSentences, IntroSentences, AvailableLanguages, ActivitySentences } from './samples';
+import { SentenceTranslation, GreetingSentences, GenderSentences, IntroSentences, AvailableLanguages, ActivitySentences, DescriptionSentences } from './samples';
 const prisma = new PrismaClient()
 
 const insertSetnences = async (sentences: SentenceTranslation[], lessonId: string, newLanguages: any[]) => {
@@ -111,6 +111,15 @@ async function main() {
         courseId: spanishCourse2.id
     }
   })
+
+  const descriptionLesson = await prisma.lesson.create({
+    data: {
+        name: 'Description of persons',
+        createdAt:  new Date(Date.now()),
+        updatedAt: new Date(Date.now()),
+        courseId: spanishCourse2.id
+    }
+  })
   console.log('Insert lessons - done')
 
   console.log('Insert sentences - start')
@@ -118,6 +127,7 @@ async function main() {
   await insertSetnences(GenderSentences, genderLesson.id, newLanguages)
   await insertSetnences(IntroSentences, introLesson.id, newLanguages)
   await insertSetnences(ActivitySentences, activityLesson.id, newLanguages)
+  await insertSetnences(DescriptionSentences, descriptionLesson.id, newLanguages)
 
   console.log('Insert sentences - end')
 }

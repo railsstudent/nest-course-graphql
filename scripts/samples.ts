@@ -515,6 +515,61 @@ export const ActivitySentences = [
       },
 ]
 
+export const DescriptionSentences = [
+  { 
+    text: 'Ella es una mujer joven. Ella tienes el pelo rubio, largo y liso, los ojos azules, boca pequeña y nariz pequeña.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'She is a young woman. She has long, straight, blond hair, blue eyes, a small mouth and a small nose.'
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '她是一個年輕女子。她有一頭直直的金色長髮，藍色的眼睛，小嘴巴和小鼻子。'
+      }
+    ]
+  },
+  { 
+    text: 'Ella es una mujer joven y lleva una gorra blanca con logotipo Angular. Ella tienes el pelo castaño, corto y liso, los ojos marrones, boca pequeña y labitos pintados de rojo.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'She is a young woman and wears a white cap with Angular logo. She has short, straight brown hair, brown eyes, a small mouth, and red lipstick.'
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '她是一位年輕女子，戴著帶有Angular徽標的白帽子。她有一頭短而直的棕色頭髮，棕色的眼睛，小嘴巴和紅色嘴唇。'
+      }
+    ]
+  },
+  { 
+    text: 'Yo soy una mujer mayor y llevo lentes. Yo tengo el pelo moreno, corto y liso, los ojos negros, boca grande y nariz grande.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'I am an older woman and I wear glasses. I have short, straight black hair, black eyes, a large mouth, and a large nose.'
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '我是一個年長的女人。我有一頭黑色的短直髮，黑眼睛，大嘴巴，大鼻子。'
+      }
+    ]
+  },
+  { 
+    text: 'El es un hombre mayor, lleva lentes y sombrero negro. El tiene el pelo corto, los ojos azules, boca pequeña, labitos pequeños y nariz grande.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'He is an older man, wears glasses and a black hat. He has short hair, blue eyes, a small mouth, small lips, and a large nose.'
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '他是個大男人，戴著眼鏡，戴著黑帽子。他短髮，藍眼睛，小嘴巴，小嘴唇，大鼻子。'
+      }
+    ]
+  },
+]
+
 export const AvailableLanguages: LangType[] = [
     {
         name: 'English',
