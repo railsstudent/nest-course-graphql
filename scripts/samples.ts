@@ -530,15 +530,15 @@ export const DescriptionSentences = [
     ]
   },
   { 
-    text: 'Ella es una mujer joven y lleva una gorra blanca con logotipo Angular. Ella tienes el pelo castaño, corto y liso, los ojos marrones, boca pequeña y labitos pintados de rojo.',
+    text: 'Ella es una mujer joven y lleva una gorra blanca con logotipo Angular. Ella tienes el pelo castaño, corto y ondulado, los ojos marrones, boca pequeña y labitos pintados de rojo.',
     translations: [
       {
         lang: TRANS_LANG.ENG,
-        text: 'She is a young woman and wears a white cap with Angular logo. She has short, straight brown hair, brown eyes, a small mouth, and red lipstick.'
+        text: 'She is a young woman and wears a white cap with Angular logo. She has short, wavy brown hair, brown eyes, a small mouth, and red lipstick.'
       },
       {
         lang: TRANS_LANG.CHN,
-        text: '她是一位年輕女子，戴著帶有Angular徽標的白帽子。她有一頭短而直的棕色頭髮，棕色的眼睛，小嘴巴和紅色嘴唇。'
+        text: '她是一位年輕女子，戴著帶有Angular徽標的白帽子。她有一頭波浪狀短髮，棕色的眼睛，小嘴巴和紅色嘴唇。'
       }
     ]
   },
