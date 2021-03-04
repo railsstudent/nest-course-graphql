@@ -39,4 +39,9 @@ export class SentenceResolver {
   async availableTranslations(@Parent() sentence: Sentence): Promise<Language[]> {
     return await this.translationService.getAvailableTranslations(sentence?.id || '')
   }
+
+  @Mutation(() => Sentence)
+  async deleteSentence(@Args('id') sentenceId: string): Promise<Sentence> {
+    return await this.sentenceService.deleteSentence(sentenceId)
+  }
 }

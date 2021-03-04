@@ -108,6 +108,7 @@ export class SentenceService {
       where: {
         id: sentenceId,
       },
+      rejectOnNotFound: true,
       include: {
         lesson: true,
         translations: {
@@ -115,6 +116,20 @@ export class SentenceService {
             language: true,
           },
         },
+      },
+    })
+  }
+
+  async deleteSentence(sentenceId: string): Promise<Sentence> {
+    await this.service.translation.deleteMany({
+      where: {
+        sentenceId,
+      },
+    })
+
+    return await this.service.sentence.delete({
+      where: {
+        id: sentenceId,
       },
     })
   }

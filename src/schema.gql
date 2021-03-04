@@ -60,6 +60,7 @@ type Mutation {
   addLesson(newLesson: AddLessonInput!): Lesson!
   addSentence(newSentence: AddSentenceInput!): Sentence!
   addTranslation(newTranslation: AddTranslationInput!): Translation!
+  deleteSentence(id: String!): Sentence!
   deleteTranslation(id: String!): Translation!
   updateCourse(course: UpdateCourseInput!): Course!
   updateLanguage(updateLanguage: UpdateLanguageInput!): Language!
