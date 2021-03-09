@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { PrismaService } from '../../prisma'
 import { AddSentenceInput, UpdateSentenceInput } from '../dto'
-import { Sentence } from '../entities'
+import { Sentence, DeletedSentence, Translation } from '../entities'
 import { UniqueHelper } from './unique.helper'
 
 @Injectable()
@@ -120,17 +120,31 @@ export class SentenceService {
     })
   }
 
-  async deleteSentence(sentenceId: string): Promise<Sentence> {
-    await this.service.translation.deleteMany({
-      where: {
-        sentenceId,
-      },
-    })
+  async deleteSentence(sentenceId: string): Promise<DeletedSentence> {
+    const sentence = await this.getSentence(sentenceId)
 
-    return await this.service.sentence.delete({
+    const deleteTranslations = (sentence?.translations || []).map((translation) =>
+      this.service.translation.delete({
+        where: {
+          id: translation.id,
+        },
+      }),
+    )
+
+    const deleteSentence = this.service.sentence.delete({
       where: {
         id: sentenceId,
       },
     })
+
+    const results = await this.service.$transaction([...deleteTranslations, deleteSentence])
+
+    const firstSentence = (results.splice(-1) as unknown) as Sentence[]
+    const restTranslations = (results as unknown) as Translation[]
+
+    return {
+      sentence: firstSentence[0],
+      translations: restTranslations,
+    }
   }
 }

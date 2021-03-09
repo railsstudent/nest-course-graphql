@@ -38,6 +38,12 @@ type Course {
   name: String
 }
 
+"""Deleted sentence model"""
+type DeletedSentence {
+  sentence: Sentence
+  translations: [Translation!]
+}
+
 """Language model"""
 type Language {
   fullname: String
@@ -60,7 +66,7 @@ type Mutation {
   addLesson(newLesson: AddLessonInput!): Lesson!
   addSentence(newSentence: AddSentenceInput!): Sentence!
   addTranslation(newTranslation: AddTranslationInput!): Translation!
-  deleteSentence(id: String!): Sentence!
+  deleteSentence(id: String!): DeletedSentence!
   deleteTranslation(id: String!): Translation!
   updateCourse(course: UpdateCourseInput!): Course!
   updateLanguage(updateLanguage: UpdateLanguageInput!): Language!
