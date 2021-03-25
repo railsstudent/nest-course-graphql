@@ -9,7 +9,7 @@ export class CourseService {
   constructor(private readonly service: PrismaService, private readonly uniqueHelper: UniqueHelper) {}
 
   async getCourses(args: PaginationArgs): Promise<Course[]> {
-    const { offset = 0, limit = 8 } = args || {}
+    const { offset = 0, limit = 4 } = args || {}
 
     return await this.service.course.findMany({
       skip: offset * limit,
