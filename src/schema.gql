@@ -81,7 +81,7 @@ input PaginationArgs {
 
 type Query {
   course(id: String = ""): Course
-  courses: [Course!]
+  courses(args: PaginationArgs!): [Course!]
   getLanguages: [Language!]!
   getSentence(id: String = ""): Sentence!
   getTranslation(languageId: String!, sentenceId: String!): Translation!

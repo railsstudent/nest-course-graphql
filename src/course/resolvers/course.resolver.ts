@@ -8,8 +8,8 @@ export class CourseResolver {
   constructor(private courseService: CourseService, private lessonService: LessonService) {}
 
   @Query(() => [Course], { nullable: true })
-  async courses(): Promise<Course[]> {
-    return await this.courseService.getCourses()
+  async courses(@Args('args') args: PaginationArgs): Promise<Course[]> {
+    return await this.courseService.getCourses(args)
   }
 
   @Query(() => Course, { nullable: true })

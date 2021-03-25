@@ -1,6 +1,6 @@
 import { PrismaService } from 'src/prisma/prisma.service'
 import { BadRequestException, Injectable } from '@nestjs/common'
-import { AddCourseInput, UpdateCourseInput } from '../dto'
+import { AddCourseInput, PaginationArgs, UpdateCourseInput } from '../dto'
 import { Course } from '../entities'
 import { UniqueHelper } from './unique.helper'
 
@@ -8,8 +8,12 @@ import { UniqueHelper } from './unique.helper'
 export class CourseService {
   constructor(private readonly service: PrismaService, private readonly uniqueHelper: UniqueHelper) {}
 
-  async getCourses(): Promise<Course[]> {
+  async getCourses(args: PaginationArgs): Promise<Course[]> {
+    const { offset = 0, limit = 8 } = args || {}
+
     return await this.service.course.findMany({
+      skip: offset * limit,
+      take: limit,
       orderBy: [
         {
           name: 'asc',
