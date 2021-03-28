@@ -12,7 +12,7 @@ export class CourseService {
     const { offset = 0, limit = 4 } = args || {}
 
     return await this.service.course.findMany({
-      skip: offset * limit,
+      skip: offset,
       take: limit,
       orderBy: [
         {
