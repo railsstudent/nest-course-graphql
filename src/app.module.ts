@@ -9,6 +9,10 @@ import { CourseModule } from './course'
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       include: [CourseModule],
+      formatError: (err) => {
+        console.log(err)
+        return err
+      },
     }),
     CourseModule,
   ],
