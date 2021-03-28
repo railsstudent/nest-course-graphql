@@ -66,40 +66,42 @@ async function main() {
     }
   })
 
-  await prisma.course.createMany({
-    data: [
-      {
-        name: 'Spanish 201',
-        description: 'Level 2 Spanish course A',
-        languageId: spanish.id
-      },
-      {
-        name: 'Spanish 202',
-        description: 'Level 2 Spanish course B',
-        languageId: spanish.id
-      },
-      {
-        name: 'Spanish 301',
-        description: 'Level 3 Spanish course A',
-        languageId: spanish.id
-      },
-      {
-        name: 'Spanish 302',
-        description: 'Level 3 Spanish course B',
-        languageId: spanish.id
-      },
-      {
-        name: 'Spanish 401',
-        description: 'Level 4 Spanish course A',
-        languageId: spanish.id
-      },
-      {
-        name: 'Spanish 402',
-        description: 'Level 4 Spanish course B',
-        languageId: spanish.id
-      }
-    ]
-  })
+  const courses = [
+    {
+      name: 'Spanish 201',
+      description: 'Level 2 Spanish course A',
+      languageId: spanish.id
+    },
+    {
+      name: 'Spanish 202',
+      description: 'Level 2 Spanish course B',
+      languageId: spanish.id
+    },
+    {
+      name: 'Spanish 301',
+      description: 'Level 3 Spanish course A',
+      languageId: spanish.id
+    },
+    {
+      name: 'Spanish 302',
+      description: 'Level 3 Spanish course B',
+      languageId: spanish.id
+    },
+    {
+      name: 'Spanish 401',
+      description: 'Level 4 Spanish course A',
+      languageId: spanish.id
+    },
+    {
+      name: 'Spanish 402',
+      description: 'Level 4 Spanish course B',
+      languageId: spanish.id
+    }
+  ]
+
+  await Promise.all(
+    courses.map(async data => await prisma.course.create({ data }))
+  )
 
   console.log('Insert courses - done')
 
