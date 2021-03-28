@@ -66,7 +66,7 @@ async function main() {
     }
   })
 
-  prisma.course.createMany({
+  await prisma.course.createMany({
     data: [
       {
         name: 'Spanish 201',
@@ -79,7 +79,7 @@ async function main() {
         languageId: spanish.id
       },
       {
-        name: 'Spanish 302',
+        name: 'Spanish 301',
         description: 'Level 3 Spanish course A',
         languageId: spanish.id
       },
