@@ -3,7 +3,7 @@ import { Language } from '../src/course/entities/language.entity';
 import { SentenceTranslation, GreetingSentences, GenderSentences, IntroSentences, AvailableLanguages, ActivitySentences, DescriptionSentences } from './samples';
 const prisma = new PrismaClient()
 
-const insertSetnences = async (sentences: SentenceTranslation[], lessonId: string, newLanguages: any[]) => {
+const insertSentences = async (sentences: SentenceTranslation[], lessonId: string, newLanguages: any[]) => {
   for (const sentence of sentences) {
     const newSentence = await prisma.sentence.create({
         data: {
@@ -65,6 +65,42 @@ async function main() {
         languageId: spanish.id
     }
   })
+
+  prisma.course.createMany({
+    data: [
+      {
+        name: 'Spanish 201',
+        description: 'Level 2 Spanish course A',
+        languageId: spanish.id
+      },
+      {
+        name: 'Spanish 202',
+        description: 'Level 2 Spanish course B',
+        languageId: spanish.id
+      },
+      {
+        name: 'Spanish 302',
+        description: 'Level 3 Spanish course A',
+        languageId: spanish.id
+      },
+      {
+        name: 'Spanish 302',
+        description: 'Level 3 Spanish course B',
+        languageId: spanish.id
+      },
+      {
+        name: 'Spanish 401',
+        description: 'Level 4 Spanish course A',
+        languageId: spanish.id
+      },
+      {
+        name: 'Spanish 402',
+        description: 'Level 4 Spanish course B',
+        languageId: spanish.id
+      }
+    ]
+  })
+
   console.log('Insert courses - done')
 
   console.log('Insert lessons - start')
@@ -88,11 +124,11 @@ async function main() {
   console.log('Insert lessons - done')
 
   console.log('Insert sentences - start')
-  await insertSetnences(GreetingSentences, introductionLesson.id, newLanguages)
-  await insertSetnences(GenderSentences, genderLesson.id, newLanguages)
-  await insertSetnences(IntroSentences, introLesson.id, newLanguages)
-  await insertSetnences(ActivitySentences, activityLesson.id, newLanguages)
-  await insertSetnences(DescriptionSentences, descriptionLesson.id, newLanguages)
+  await insertSentences(GreetingSentences, introductionLesson.id, newLanguages)
+  await insertSentences(GenderSentences, genderLesson.id, newLanguages)
+  await insertSentences(IntroSentences, introLesson.id, newLanguages)
+  await insertSentences(ActivitySentences, activityLesson.id, newLanguages)
+  await insertSentences(DescriptionSentences, descriptionLesson.id, newLanguages)
   console.log('Insert sentences - end')
 }
 

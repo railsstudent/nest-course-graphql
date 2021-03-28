@@ -586,5 +586,9 @@ export const AvailableLanguages: LangType[] = [
     {
         name: 'Portuguese',
         nativeName: 'Português'
+    },
+    {
+        name: 'Vietnamese',
+        nativeName: 'Tiếng Việt'
     }
   ]
