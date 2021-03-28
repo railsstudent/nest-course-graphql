@@ -16,6 +16,9 @@ export class CourseService {
       take: limit,
       orderBy: [
         {
+          createdAt: 'asc',
+        },
+        {
           name: 'asc',
         },
       ],
