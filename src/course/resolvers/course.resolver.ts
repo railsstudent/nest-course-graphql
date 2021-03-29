@@ -7,10 +7,10 @@ import { CourseService, LessonService } from '../services'
 export class CourseResolver {
   constructor(private courseService: CourseService, private lessonService: LessonService) {}
 
-  @Query(() => [Course], { nullable: true })
-  async courses(@Args('args') args: PaginationArgs): Promise<Course[]> {
-    return await this.courseService.getCourses(args)
-  }
+  // @Query(() => ({ cursor: number, courses: Course[] }), { nullable: true })
+  // async courses(@Args('args') args: CursorPaginationArgs): Promise<{ cursor: number, courses: Course[] }> {
+  //   return await this.courseService.getCourses(args)
+  // }
 
   @Query(() => Course, { nullable: true })
   async course(@Args('id', { defaultValue: '', type: () => String }) id?: string): Promise<Course | undefined> {

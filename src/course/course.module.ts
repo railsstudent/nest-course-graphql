@@ -7,6 +7,7 @@ import {
   LessonResolver,
   SentenceResolver,
   TranslationResolver,
+  PaginatedItemsResolver,
 } from './resolvers'
 import { CourseService, LessonService, SentenceService, TranslationService, UniqueHelper } from './services'
 
@@ -24,6 +25,7 @@ import { CourseService, LessonService, SentenceService, TranslationService, Uniq
     UniqueHelper,
     LanguageResolver,
     DeletedSentenceResolver,
+    PaginatedItemsResolver,
   ],
 })
 export class CourseModule {}

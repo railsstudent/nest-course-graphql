@@ -38,6 +38,11 @@ type Course {
   name: String
 }
 
+input CursorPaginationArgs {
+  cursor: Float = -1
+  limit: Int = 10
+}
+
 """Deleted sentence model"""
 type DeletedSentence {
   sentence: Sentence
@@ -74,6 +79,13 @@ type Mutation {
   updateSentence(updateSentence: UpdateSentenceInput!): Sentence!
 }
 
+"""Cursor-based pagination of courses/sentences"""
+type PaginatedItems {
+  courses: [Course!]
+  cursor: Float
+  sentences: [Sentence!]
+}
+
 input PaginationArgs {
   limit: Int = 10
   offset: Int = 0
@@ -81,7 +93,7 @@ input PaginationArgs {
 
 type Query {
   course(id: String = ""): Course
-  courses(args: PaginationArgs!): [Course!]
+  courses(args: CursorPaginationArgs!): PaginatedItems
   getLanguages: [Language!]!
   getSentence(id: String = ""): Sentence!
   getTranslation(languageId: String!, sentenceId: String!): Translation!

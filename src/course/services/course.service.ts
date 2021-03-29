@@ -1,31 +1,49 @@
-import { PrismaService } from 'src/prisma/prisma.service'
-import { BadRequestException, Injectable } from '@nestjs/common'
-import { AddCourseInput, PaginationArgs, UpdateCourseInput } from '../dto'
-import { Course } from '../entities'
+import { UserInputError } from 'apollo-server-express'
+import { Injectable } from '@nestjs/common'
+import { PrismaService } from '../../prisma/prisma.service'
+import { AddCourseInput, CursorPaginationArgs, UpdateCourseInput } from '../dto'
+import { Course, PaginatedItems } from '../entities'
 import { UniqueHelper } from './unique.helper'
 
 @Injectable()
 export class CourseService {
   constructor(private readonly service: PrismaService, private readonly uniqueHelper: UniqueHelper) {}
 
-  async getCourses(args: PaginationArgs): Promise<Course[]> {
-    const { offset = 0, limit = 4 } = args || {}
+  async getCourses(args: CursorPaginationArgs): Promise<PaginatedItems> {
+    const { cursor = -1, limit = 4 } = args || {}
 
-    return await this.service.course.findMany({
-      skip: offset,
+    const where =
+      cursor < 0
+        ? null
+        : {
+            createdAt: {
+              gt: new Date(cursor),
+            },
+          }
+
+    const baseOptions = {
       take: limit,
       orderBy: [
         {
           createdAt: 'asc',
         },
-        {
-          name: 'asc',
-        },
       ],
       include: {
         language: true,
       },
-    })
+    }
+    const findOptions: any = where ? { ...baseOptions, where } : baseOptions
+    const courses = await this.service.course.findMany(findOptions)
+
+    let nextCursor = -1
+    if (courses && courses.length > 0) {
+      nextCursor = courses[courses.length - 1].createdAt.getTime()
+    }
+
+    return {
+      cursor: nextCursor,
+      courses,
+    }
   }
 
   getCourse(id: string): Promise<Course> {
@@ -39,7 +57,7 @@ export class CourseService {
 
     const course = await this.uniqueHelper.findUniqueCourse({ name }, null, false)
     if (course) {
-      throw new BadRequestException('Course name is already used')
+      throw new UserInputError('Course name is already used')
     }
 
     return await this.service.course.create({
@@ -69,7 +87,7 @@ export class CourseService {
     })
 
     if (duplicatedCourse && duplicatedCourse.id !== id) {
-      throw new BadRequestException(`Course name/description is already used in ${duplicatedCourse?.language?.name}`)
+      throw new UserInputError(`Course name/description is already used in ${duplicatedCourse?.language?.name}`)
     }
 
     return await this.service.course.update({
