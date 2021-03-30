@@ -1,6 +1,6 @@
 import { UserInputError } from 'apollo-server-express'
 import { Injectable } from '@nestjs/common'
-import { PrismaService } from '../../prisma/prisma.service'
+import { PrismaService } from '../../prisma'
 import { AddCourseInput, CursorPaginationArgs, UpdateCourseInput } from '../dto'
 import { Course, PaginatedItems } from '../entities'
 import { UniqueHelper } from './unique.helper'

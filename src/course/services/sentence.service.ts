@@ -1,4 +1,5 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { UserInputError } from 'apollo-server-express'
+import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../../prisma'
 import { AddSentenceInput, UpdateSentenceInput } from '../dto'
 import { Sentence, DeletedSentence, Translation } from '../entities'
@@ -20,7 +21,7 @@ export class SentenceService {
     })
 
     if (sentence) {
-      throw new BadRequestException(`${text} is found in ${lesson?.name} lesson`)
+      throw new UserInputError(`${text} is found in ${lesson?.name} lesson`)
     }
 
     return await this.service.sentence.create({
@@ -70,7 +71,7 @@ export class SentenceService {
 
     if (sentence) {
       const { text = '' } = rest
-      throw new BadRequestException(`${text} is found in ${sentence?.lesson?.name} lesson`)
+      throw new UserInputError(`${text} is found in ${sentence?.lesson?.name} lesson`)
     }
 
     return await this.service.sentence.update({

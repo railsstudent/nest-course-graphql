@@ -1,5 +1,6 @@
-import { PrismaService } from 'src/prisma/prisma.service'
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { UserInputError } from 'apollo-server-express'
+import { PrismaService } from '../../prisma'
+import { Injectable } from '@nestjs/common'
 import { AddLessonInput, GetLessonArgs, UpdateLessonInput } from '../dto'
 import { Lesson } from '../entities'
 import { UniqueHelper } from './unique.helper'
@@ -61,7 +62,7 @@ export class LessonService {
     })
 
     if (lesson) {
-      throw new BadRequestException('Lesson name is already used')
+      throw new UserInputError('Lesson name is already used')
     }
 
     return await this.service.lesson.create({
@@ -112,7 +113,7 @@ export class LessonService {
     })
 
     if (duplicatedLesson) {
-      throw new BadRequestException('Cannot update, lesson name is already used')
+      throw new UserInputError('Cannot update, lesson name is already used')
     }
 
     return await this.service.lesson.update({
