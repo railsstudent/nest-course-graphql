@@ -1,4 +1,4 @@
-import { UserInputError } from 'apollo-server-express'
+import { ValidationError } from 'apollo-server-express'
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../../prisma'
 import { AddSentenceInput, UpdateSentenceInput } from '../dto'
@@ -21,7 +21,7 @@ export class SentenceService {
     })
 
     if (sentence) {
-      throw new UserInputError(`${text} is found in ${lesson?.name} lesson`)
+      throw new ValidationError(`${text} is found in ${lesson?.name} lesson`)
     }
 
     return await this.service.sentence.create({
@@ -71,7 +71,7 @@ export class SentenceService {
 
     if (sentence) {
       const { text = '' } = rest
-      throw new UserInputError(`${text} is found in ${sentence?.lesson?.name} lesson`)
+      throw new ValidationError(`${text} is found in ${sentence?.lesson?.name} lesson`)
     }
 
     return await this.service.sentence.update({

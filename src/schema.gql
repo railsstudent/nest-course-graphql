@@ -34,8 +34,9 @@ type Course {
   description: String
   id: ID!
   language: Language
-  lessons(args: PaginationArgs!): [Lesson!]
+  lessons: [Lesson!]
   name: String
+  paginatedLessons(args: CursorPaginationArgs!): PaginatedItems
 }
 
 input CursorPaginationArgs {
@@ -79,16 +80,12 @@ type Mutation {
   updateSentence(updateSentence: UpdateSentenceInput!): Sentence!
 }
 
-"""Cursor-based pagination of courses/sentences"""
+"""Cursor-based pagination of courses/lessons/sentences"""
 type PaginatedItems {
   courses: [Course!]
   cursor: Float
+  lessons: [Lesson!]
   sentences: [Sentence!]
-}
-
-input PaginationArgs {
-  limit: Int = 10
-  offset: Int = 0
 }
 
 type Query {

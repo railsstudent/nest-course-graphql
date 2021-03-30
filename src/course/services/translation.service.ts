@@ -3,7 +3,7 @@ import { PrismaService } from '../../prisma'
 import { Language, Translation } from '../entities'
 import { AddLanguageInput, AddTranslationInput, UpdateLanguageInput } from '../dto'
 import { UniqueHelper } from './unique.helper'
-import { UserInputError } from 'apollo-server-express'
+import { UserInputError, ValidationError } from 'apollo-server-express'
 
 @Injectable()
 export class TranslationService {
@@ -44,13 +44,13 @@ export class TranslationService {
     const duplicatedLang = sentence.translations.some((translation) => translation?.languageId === languageId)
     if (duplicatedLang) {
       const language = await this.uniqueHelper.findUniqueLanguage({ id: languageId }, true)
-      throw new UserInputError(`${language?.name} translation already exists`)
+      throw new ValidationError(`${language?.name} translation already exists`)
     }
 
     const duplTranslation = sentence.translations.find((translation) => translation?.text === text)
     if (duplTranslation) {
       const language = await this.uniqueHelper.findUniqueLanguage({ id: duplTranslation.languageId }, true)
-      throw new UserInputError(`${duplTranslation?.text} is found in ${language?.name} translation`)
+      throw new ValidationError(`${duplTranslation?.text} is found in ${language?.name} translation`)
     }
 
     return await this.service.translation.create({
@@ -124,7 +124,7 @@ export class TranslationService {
     if (language) {
       const { name = '', nativeName = '' } = rest
       const pair = `${name}${name && nativeName ? '/' : ''}${nativeName}`
-      throw new UserInputError(`${pair} already exists`)
+      throw new ValidationError(`${pair} already exists`)
     }
 
     return await this.service.language.update({

@@ -22,6 +22,7 @@
     "prisma:generate": "npx prisma generate",
     "prisma:create": "npx prisma migrate dev --create-only --preview-feature",
     "prisma:deploy": "npx prisma migrate deploy --preview-feature",
+    "prisma:format": "npx prisma format",
     "seed": "ts-node scripts/seed.ts"
   },
   "dependencies": {

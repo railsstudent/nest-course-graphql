@@ -1,32 +1,47 @@
-import { UserInputError } from 'apollo-server-express'
+import { UserInputError, ValidationError } from 'apollo-server-express'
 import { PrismaService } from '../../prisma'
 import { Injectable } from '@nestjs/common'
 import { AddLessonInput, GetLessonArgs, UpdateLessonInput } from '../dto'
-import { Lesson } from '../entities'
+import { Lesson, PaginatedItems } from '../entities'
 import { UniqueHelper } from './unique.helper'
 
 @Injectable()
 export class LessonService {
   constructor(private readonly service: PrismaService, private readonly uniqueHelper: UniqueHelper) {}
 
-  async getPaginatedLessons(args: GetLessonArgs): Promise<Lesson[]> {
-    const { courseId, offset, limit } = args || {}
+  async getPaginatedLessons(args: GetLessonArgs): Promise<PaginatedItems> {
+    const { courseId, cursor, limit } = args || {}
+    const where =
+      cursor < 0
+        ? {
+            courseId,
+          }
+        : {
+            courseId,
+            createdAt: {
+              gte: new Date(cursor),
+            },
+          }
 
-    return await this.service.lesson.findMany({
-      where: {
-        courseId,
-      },
-      skip: offset * limit,
+    const lessons = await this.service.lesson.findMany({
+      where,
       take: limit,
       orderBy: [
         {
-          name: 'asc',
+          createdAt: 'asc',
         },
       ],
       include: {
         course: true,
       },
     })
+
+    const nextCursor = lessons && lessons.length > 0 ? lessons[lessons.length - 1].createdAt.getTime() : -1
+
+    return {
+      cursor: nextCursor,
+      lessons,
+    }
   }
 
   async getLesson(id: string): Promise<Lesson> {
@@ -113,7 +128,7 @@ export class LessonService {
     })
 
     if (duplicatedLesson) {
-      throw new UserInputError('Cannot update, lesson name is already used')
+      throw new ValidationError('Cannot update, lesson name is already used')
     }
 
     return await this.service.lesson.update({

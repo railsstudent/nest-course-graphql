@@ -1,6 +1,6 @@
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
-import { UpdateCourseInput, AddCourseInput, PaginationArgs } from '../dto'
-import { Course, Lesson } from '../entities'
+import { UpdateCourseInput, AddCourseInput, CursorPaginationArgs } from '../dto'
+import { Course, PaginatedItems } from '../entities'
 import { CourseService, LessonService } from '../services'
 
 @Resolver(() => Course)
@@ -28,7 +28,7 @@ export class CourseResolver {
   }
 
   @ResolveField()
-  async lessons(@Parent() course: Course, @Args('args') args: PaginationArgs): Promise<Lesson[]> {
+  async paginatedLessons(@Parent() course: Course, @Args('args') args: CursorPaginationArgs): Promise<PaginatedItems> {
     const { id: courseId } = course
     return await this.lessonService.getPaginatedLessons({ ...args, courseId })
   }

@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["createMany"]
 }
 
@@ -9,60 +9,61 @@ datasource db {
 }
 
 model course {
-  id         String   @id @default(uuid())
-  name       String?  @unique
+  id          String    @id @default(uuid())
+  name        String?   @unique
   description String?
-  languageId String?
-  language   language? @relation(fields: [languageId], references: [id])
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now())
+  languageId  String?
+  language    language? @relation(fields: [languageId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
   lessons     lesson[]
 }
 
 model language {
-  id          String        @id @default(uuid())
-  name        String?       
-  nativeName  String?       
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @default(now())
+  id           String        @id @default(uuid())
+  name         String?
+  nativeName   String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
   translations translation[]
 
   @@unique([name, nativeName], name: "lanaguage_name_nativeName_key")
+  course course[]
 }
 
 model lesson {
   id        String     @id @default(uuid())
-  name      String?    
+  name      String?
   createdAt DateTime   @default(now())
   updatedAt DateTime   @default(now())
   courseId  String
   course    course     @relation(fields: [courseId], references: [id])
-  sentences  sentence[]
+  sentences sentence[]
 
   @@unique([name, courseId], name: "lesson_name_course_key")
 }
 
 model sentence {
-  id          String        @id @default(uuid())
-  text        String?       
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @default(now())
-  lessonId    String
-  lesson      lesson        @relation(fields: [lessonId], references: [id])
+  id           String        @id @default(uuid())
+  text         String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
+  lessonId     String
+  lesson       lesson        @relation(fields: [lessonId], references: [id])
   translations translation[]
 
   @@unique([text, lessonId], name: "sentence_text_lesson_key")
 }
 
 model translation {
-  id         String   @id @default(uuid())
+  id         String    @id @default(uuid())
   text       String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now())
   languageId String?
   sentenceId String
   language   language? @relation(fields: [languageId], references: [id])
-  sentence   sentence @relation(fields: [sentenceId], references: [id])
+  sentence   sentence  @relation(fields: [sentenceId], references: [id])
 
   @@unique([languageId, sentenceId], name: "translation_languageId_sentenceId_key")
 }

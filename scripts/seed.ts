@@ -106,12 +106,14 @@ async function main() {
   console.log('Insert courses - done')
 
   console.log('Insert lessons - start')
-  const createLessonPromises = ['Greeting', 'Gender', 'Introduction', 'Activity', 'Description of persons'].map(
+  const createLessonPromises = ['Greeting', 'Gender', 'Introduction', 'Phrase', 'School', 
+    'Activity', 'Description of persons', 'Professon',
+    'Shopping 1', 'People 1', 'People 2', 'Shopping 2', 'Task',].map(
     async (name, index) => 
       await prisma.lesson.create({
         data: {
           name,
-          courseId: index < 3 ? spanishCourse.id : spanishCourse2.id    
+          courseId: index < 6 ? spanishCourse.id : spanishCourse2.id    
         }
       })
   )

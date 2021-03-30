@@ -34,11 +34,7 @@ export class CourseService {
     }
     const findOptions: any = where ? { ...baseOptions, where } : baseOptions
     const courses = await this.service.course.findMany(findOptions)
-
-    let nextCursor = -1
-    if (courses && courses.length > 0) {
-      nextCursor = courses[courses.length - 1].createdAt.getTime()
-    }
+    const nextCursor = courses && courses.length > 0 ? courses[courses.length - 1].createdAt.getTime() : -1
 
     return {
       cursor: nextCursor,
