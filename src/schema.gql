@@ -74,6 +74,7 @@ type Mutation {
   addTranslation(newTranslation: AddTranslationInput!): Translation!
   deleteSentence(id: String!): DeletedSentence!
   deleteTranslation(id: String!): Translation!
+  nextLessons(args: CursorPaginationArgs!, courseId: String!): PaginatedItems!
   updateCourse(course: UpdateCourseInput!): Course!
   updateLanguage(updateLanguage: UpdateLanguageInput!): Language!
   updateLesson(lesson: UpdateLessonInput!): Lesson!
