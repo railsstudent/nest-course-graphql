@@ -10,7 +10,7 @@ export class LessonService {
   constructor(private readonly service: PrismaService, private readonly uniqueHelper: UniqueHelper) {}
 
   async getPaginatedLessons(args: GetLessonArgs): Promise<PaginatedItems> {
-    const { courseId, cursor, limit } = args || {}
+    const { courseId, cursor, limit: take } = args
     const where =
       cursor < 0
         ? {
@@ -25,7 +25,7 @@ export class LessonService {
 
     const lessons = await this.service.lesson.findMany({
       where,
-      take: limit,
+      take,
       orderBy: [
         {
           createdAt: 'asc',

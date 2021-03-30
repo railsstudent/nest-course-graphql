@@ -10,19 +10,19 @@ export class CourseService {
   constructor(private readonly service: PrismaService, private readonly uniqueHelper: UniqueHelper) {}
 
   async getCourses(args: CursorPaginationArgs): Promise<PaginatedItems> {
-    const { cursor = -1, limit = 4 } = args || {}
+    const { cursor, limit: take } = args || {}
 
     const where =
       cursor < 0
         ? null
         : {
             createdAt: {
-              gt: new Date(cursor),
+              gte: new Date(cursor),
             },
           }
 
     const baseOptions = {
-      take: limit,
+      take,
       orderBy: [
         {
           createdAt: 'asc',

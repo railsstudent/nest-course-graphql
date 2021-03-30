@@ -1,8 +1,8 @@
 import { ValidationError } from 'apollo-server-express'
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../../prisma'
-import { AddSentenceInput, UpdateSentenceInput } from '../dto'
-import { Sentence, DeletedSentence, Translation } from '../entities'
+import { AddSentenceInput, GetSentenceArgs, UpdateSentenceInput } from '../dto'
+import { Sentence, DeletedSentence, Translation, PaginatedItems } from '../entities'
 import { UniqueHelper } from './unique.helper'
 
 @Injectable()
@@ -88,11 +88,28 @@ export class SentenceService {
     })
   }
 
-  async getSentences(lessonId: string): Promise<Sentence[]> {
-    return await this.service.sentence.findMany({
-      where: {
-        lessonId,
-      },
+  async getPaginatedSentences(args: GetSentenceArgs): Promise<PaginatedItems> {
+    const { lessonId, cursor, limit: take } = args || {}
+    const where =
+      cursor < 0
+        ? {
+            lessonId,
+          }
+        : {
+            lessonId,
+            createdAt: {
+              gte: new Date(cursor),
+            },
+          }
+
+    const sentences = await this.service.sentence.findMany({
+      where,
+      take,
+      orderBy: [
+        {
+          createdAt: 'asc',
+        },
+      ],
       include: {
         lesson: true,
         translations: {
@@ -102,6 +119,13 @@ export class SentenceService {
         },
       },
     })
+
+    const nextCursor = sentences && sentences.length > 0 ? sentences[sentences.length - 1].createdAt.getTime() : -1
+
+    return {
+      cursor: nextCursor,
+      sentences,
+    }
   }
 
   async getSentence(sentenceId: string): Promise<Sentence> {
