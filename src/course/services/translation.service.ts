@@ -10,7 +10,7 @@ export class TranslationService {
   constructor(private readonly service: PrismaService, private readonly uniqueHelper: UniqueHelper) {}
 
   async getTranslations(sentenceId: string): Promise<Translation[]> {
-    return await this.service.translation.findMany({
+    return this.service.translation.findMany({
       where: {
         sentenceId,
       },
@@ -67,7 +67,7 @@ export class TranslationService {
   }
 
   async getLanguages(): Promise<Language[]> {
-    return await this.service.language.findMany({
+    return this.service.language.findMany({
       orderBy: [
         {
           name: 'asc',
@@ -91,7 +91,7 @@ export class TranslationService {
       throw new UserInputError(`${name} is already added`)
     }
 
-    return await this.service.language.create({
+    return this.service.language.create({
       data: {
         name,
         nativeName,
@@ -127,7 +127,7 @@ export class TranslationService {
       throw new ValidationError(`${pair} already exists`)
     }
 
-    return await this.service.language.update({
+    return this.service.language.update({
       data: {
         ...rest,
       },
@@ -157,7 +157,7 @@ export class TranslationService {
   }
 
   async getTranslation(sentenceId: string, languageId: string): Promise<Translation> {
-    return await this.service.translation.findFirst({
+    return this.service.translation.findFirst({
       where: {
         sentenceId,
         languageId,
@@ -179,7 +179,7 @@ export class TranslationService {
       throw new UserInputError(`Translaton id ${translationId} does not exist`)
     }
 
-    return await this.service.translation.delete({
+    return this.service.translation.delete({
       where: {
         id: translationId,
       },

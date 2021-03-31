@@ -7,7 +7,7 @@ export class UniqueHelper {
   constructor(private readonly service: PrismaService) {}
 
   async findUniqueLanguage(where: Prisma.languageWhereUniqueInput, rejectOnNotFound = false) {
-    return await this.service.language.findUnique({
+    return this.service.language.findUnique({
       where,
       rejectOnNotFound,
     })
@@ -26,7 +26,7 @@ export class UniqueHelper {
   }
 
   async findUniqueLesson(where: Prisma.lessonWhereUniqueInput, rejectOnNotFound = false) {
-    return await this.service.lesson.findUnique({
+    return this.service.lesson.findUnique({
       where,
       rejectOnNotFound,
     })

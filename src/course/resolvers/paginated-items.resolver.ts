@@ -13,7 +13,7 @@ export class PaginatedItemsResolver {
 
   @Query(() => PaginatedItems, { nullable: true })
   async courses(@Args('args') args: CursorPaginationArgs): Promise<PaginatedItems> {
-    return await this.courseService.getCourses(args)
+    return this.courseService.getCourses(args)
   }
 
   @Mutation(() => PaginatedItems)
@@ -21,7 +21,7 @@ export class PaginatedItemsResolver {
     @Args('courseId') courseId: string,
     @Args('args') args: CursorPaginationArgs,
   ): Promise<PaginatedItems> {
-    return await this.lessonService.getPaginatedLessons({ ...args, courseId })
+    return this.lessonService.getPaginatedLessons({ ...args, courseId })
   }
 
   @Mutation(() => PaginatedItems)
@@ -29,6 +29,6 @@ export class PaginatedItemsResolver {
     @Args('lessonId') lessonId: string,
     @Args('args') args: CursorPaginationArgs,
   ): Promise<PaginatedItems> {
-    return await this.sentenceService.getPaginatedSentences({ ...args, lessonId })
+    return this.sentenceService.getPaginatedSentences({ ...args, lessonId })
   }
 }

@@ -9,17 +9,17 @@ export class LanguageResolver {
 
   @Query(() => [Language])
   async getLanguages(): Promise<Language[]> {
-    return await this.translationService.getLanguages()
+    return this.translationService.getLanguages()
   }
 
   @Mutation(() => Language)
   async addLanguage(@Args('newLanguage') input: AddLanguageInput): Promise<Language> {
-    return await this.translationService.addLanguage(input)
+    return this.translationService.addLanguage(input)
   }
 
   @Mutation(() => Language)
   async updateLanguage(@Args('updateLanguage') input: UpdateLanguageInput): Promise<Language> {
-    return await this.translationService.updateLanguage(input)
+    return this.translationService.updateLanguage(input)
   }
 
   @ResolveField(() => String)

@@ -24,7 +24,7 @@ export class SentenceService {
       throw new ValidationError(`${text} is found in ${lesson?.name} lesson`)
     }
 
-    return await this.service.sentence.create({
+    return this.service.sentence.create({
       data: {
         text,
         lessonId,
@@ -74,7 +74,7 @@ export class SentenceService {
       throw new ValidationError(`${text} is found in ${sentence?.lesson?.name} lesson`)
     }
 
-    return await this.service.sentence.update({
+    return this.service.sentence.update({
       data: {
         ...rest,
         updatedAt: new Date(Date.now()),
@@ -129,7 +129,7 @@ export class SentenceService {
   }
 
   async getSentence(sentenceId: string): Promise<Sentence> {
-    return await this.service.sentence.findUnique({
+    return this.service.sentence.findUnique({
       where: {
         id: sentenceId,
       },

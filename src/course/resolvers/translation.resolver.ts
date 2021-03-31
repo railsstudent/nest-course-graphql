@@ -11,11 +11,11 @@ export class TranslationResolver {
     @Args('sentenceId') sentenceId: string,
     @Args('languageId') languageId: string,
   ): Promise<Translation> {
-    return await this.translationService.getTranslation(sentenceId, languageId)
+    return this.translationService.getTranslation(sentenceId, languageId)
   }
 
   @Mutation(() => Translation)
   async deleteTranslation(@Args('id') translationId: string): Promise<Translation> {
-    return await this.translationService.deleteTranslation(translationId)
+    return this.translationService.deleteTranslation(translationId)
   }
 }

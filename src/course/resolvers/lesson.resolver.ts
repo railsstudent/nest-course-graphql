@@ -14,12 +14,12 @@ export class LessonResolver {
 
   @Mutation(() => Lesson)
   async addLesson(@Args('newLesson') input: AddLessonInput): Promise<Lesson> {
-    return await this.lessonService.addLesson(input)
+    return this.lessonService.addLesson(input)
   }
 
   @Mutation(() => Lesson)
   async updateLesson(@Args('lesson') input: UpdateLessonInput): Promise<Lesson> {
-    return await this.lessonService.updateLesson(input)
+    return this.lessonService.updateLesson(input)
   }
 
   @ResolveField()
@@ -28,6 +28,6 @@ export class LessonResolver {
     @Args('args') args: CursorPaginationArgs,
   ): Promise<PaginatedItems> {
     const lessonId = lesson?.id || ''
-    return await this.sentenceService.getPaginatedSentences({ ...args, lessonId })
+    return this.sentenceService.getPaginatedSentences({ ...args, lessonId })
   }
 }

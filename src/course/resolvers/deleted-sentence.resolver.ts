@@ -8,6 +8,6 @@ export class DeletedSentenceResolver {
 
   @Mutation(() => DeletedSentence)
   async deleteSentence(@Args('id') sentenceId: string): Promise<DeletedSentence> {
-    return await this.sentenceService.deleteSentence(sentenceId)
+    return this.sentenceService.deleteSentence(sentenceId)
   }
 }

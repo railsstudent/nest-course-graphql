@@ -56,7 +56,7 @@ export class CourseService {
       throw new UserInputError('Course name is already used')
     }
 
-    return await this.service.course.create({
+    return this.service.course.create({
       data: {
         name,
         description,
@@ -86,7 +86,7 @@ export class CourseService {
       throw new UserInputError(`Course name/description is already used in ${duplicatedCourse?.language?.name}`)
     }
 
-    return await this.service.course.update({
+    return this.service.course.update({
       data: {
         ...rest,
         updatedAt: new Date(Date.now()),

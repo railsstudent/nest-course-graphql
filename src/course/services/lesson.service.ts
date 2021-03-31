@@ -45,7 +45,7 @@ export class LessonService {
   }
 
   async getLesson(id: string): Promise<Lesson> {
-    return await this.service.lesson.findUnique({
+    return this.service.lesson.findUnique({
       where: {
         id,
       },
@@ -80,7 +80,7 @@ export class LessonService {
       throw new UserInputError('Lesson name is already used')
     }
 
-    return await this.service.lesson.create({
+    return this.service.lesson.create({
       data: {
         name,
         courseId,
@@ -131,7 +131,7 @@ export class LessonService {
       throw new ValidationError('Cannot update, lesson name is already used')
     }
 
-    return await this.service.lesson.update({
+    return this.service.lesson.update({
       data: {
         name,
         updatedAt: new Date(Date.now()),

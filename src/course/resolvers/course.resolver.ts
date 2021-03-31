@@ -19,17 +19,17 @@ export class CourseResolver {
 
   @Mutation(() => Course)
   async addCourse(@Args('newCourse') input: AddCourseInput): Promise<Course> {
-    return await this.courseService.addCourse(input)
+    return this.courseService.addCourse(input)
   }
 
   @Mutation(() => Course)
   async updateCourse(@Args('course') input: UpdateCourseInput): Promise<Course> {
-    return await this.courseService.updateCourse(input)
+    return this.courseService.updateCourse(input)
   }
 
   @ResolveField()
   async paginatedLessons(@Parent() course: Course, @Args('args') args: CursorPaginationArgs): Promise<PaginatedItems> {
     const { id: courseId } = course
-    return await this.lessonService.getPaginatedLessons({ ...args, courseId })
+    return this.lessonService.getPaginatedLessons({ ...args, courseId })
   }
 }

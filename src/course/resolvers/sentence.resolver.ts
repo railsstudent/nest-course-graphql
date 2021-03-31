@@ -17,26 +17,26 @@ export class SentenceResolver {
 
   @Mutation(() => Sentence)
   async addSentence(@Args('newSentence') input: AddSentenceInput): Promise<Sentence> {
-    return await this.sentenceService.addSentence(input)
+    return this.sentenceService.addSentence(input)
   }
 
   @Mutation(() => Sentence)
   async updateSentence(@Args('updateSentence') input: UpdateSentenceInput): Promise<Sentence> {
-    return await this.sentenceService.updateSentence(input)
+    return this.sentenceService.updateSentence(input)
   }
 
   @Mutation(() => Translation)
   async addTranslation(@Args('newTranslation') input: AddTranslationInput): Promise<Translation> {
-    return await this.translationService.addTranslation(input)
+    return this.translationService.addTranslation(input)
   }
 
   @ResolveField(() => [Translation])
   async translations(@Parent() sentence: Sentence): Promise<Translation[]> {
-    return await this.translationService.getTranslations(sentence?.id || '')
+    return this.translationService.getTranslations(sentence?.id || '')
   }
 
   @ResolveField(() => [Language])
   async availableTranslations(@Parent() sentence: Sentence): Promise<Language[]> {
-    return await this.translationService.getAvailableTranslations(sentence?.id || '')
+    return this.translationService.getAvailableTranslations(sentence?.id || '')
   }
 }
