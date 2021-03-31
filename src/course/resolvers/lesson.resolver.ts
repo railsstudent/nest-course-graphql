@@ -8,7 +8,7 @@ export class LessonResolver {
   constructor(private lessonService: LessonService, private sentenceService: SentenceService) {}
 
   @Query(() => Lesson, { nullable: true })
-  async lesson(@Args('id', { defaultValue: '', type: () => String }) id?: string): Promise<Lesson | undefined> {
+  async getLesson(@Args('id', { defaultValue: '', type: () => String }) id?: string): Promise<Lesson | undefined> {
     return await this.lessonService.getLesson(id)
   }
 
