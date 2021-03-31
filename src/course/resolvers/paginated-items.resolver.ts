@@ -1,11 +1,15 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CursorPaginationArgs } from '../dto'
 import { PaginatedItems } from '../entities'
-import { CourseService, LessonService } from '../services'
+import { CourseService, LessonService, SentenceService } from '../services'
 
 @Resolver(() => PaginatedItems)
 export class PaginatedItemsResolver {
-  constructor(private courseService: CourseService, private lessonService: LessonService) {}
+  constructor(
+    private courseService: CourseService,
+    private lessonService: LessonService,
+    private sentenceService: SentenceService,
+  ) {}
 
   @Query(() => PaginatedItems, { nullable: true })
   async courses(@Args('args') args: CursorPaginationArgs): Promise<PaginatedItems> {
@@ -18,5 +22,13 @@ export class PaginatedItemsResolver {
     @Args('args') args: CursorPaginationArgs,
   ): Promise<PaginatedItems> {
     return await this.lessonService.getPaginatedLessons({ ...args, courseId })
+  }
+
+  @Mutation(() => PaginatedItems)
+  async nextSentences(
+    @Args('lessonId') lessonId: string,
+    @Args('args') args: CursorPaginationArgs,
+  ): Promise<PaginatedItems> {
+    return await this.sentenceService.getPaginatedSentences({ ...args, lessonId })
   }
 }
