@@ -98,7 +98,7 @@ export class SentenceService {
         : {
             lessonId,
             createdAt: {
-              gte: new Date(cursor),
+              gt: new Date(cursor),
             },
           }
 

@@ -19,7 +19,7 @@ export class LessonService {
         : {
             courseId,
             createdAt: {
-              gte: new Date(cursor),
+              gt: new Date(cursor),
             },
           }
 
