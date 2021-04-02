@@ -99,24 +99,24 @@ async function main() {
     }
   ]
 
-  await Promise.all(
-    courses.map(async data => await prisma.course.create({ data }))
-  )
-
+  for (const lang of courses) {
+    await prisma.course.create({ data: lang })
+  }
   console.log('Insert courses - done')
 
   console.log('Insert lessons - start')
-  const createLessonPromises = ['Greeting', 'Gender', 'Introduction', 'Phrase', 'School', 
-    'Activity', 'Description of persons', 'Professon',
-    'Shopping 1', 'People 1', 'People 2', 'Shopping 2', 'Task',].map(
-    async (name, index) => 
-      await prisma.lesson.create({
-        data: {
-          name,
-          courseId: index < 6 ? spanishCourse.id : spanishCourse2.id    
-        }
-      })
-  )
+  const createLessonPromises = [];
+  const lessons = ['Greeting', 'Gender', 'Introduction', 'Phrase', 'School', 
+  'Activity', 'Description of persons', 'Professon',
+  'Shopping 1', 'People 1', 'People 2', 'Shopping 2', 'Task',];
+  for (let index = 0; index < lessons.length; index++) {
+    createLessonPromises.push(await prisma.lesson.create({
+      data: {
+        name: lessons[index],
+        courseId: index < 6 ? spanishCourse.id : spanishCourse2.id    
+      }
+    }))
+  }
 
   const [
     introductionLesson, 
