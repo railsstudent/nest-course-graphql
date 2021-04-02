@@ -501,7 +501,7 @@ export const ActivitySentences = [
         translations: [
           {
             lang: TRANS_LANG.ENG,
-            text: 'I drink water, you drink water, he drinks water'
+            text: 'I drink bread, you drink bread, he drinks bread'
           },
           {
               lang: TRANS_LANG.POR,
