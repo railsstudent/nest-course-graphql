@@ -107,24 +107,26 @@ async function main() {
   console.log('Insert lessons - start')
   const createLessonPromises = [];
   const lessons = ['Greeting', 'Gender', 'Introduction', 'Phrase', 'School', 
-  'Activity', 'Description of persons', 'Professon',
-  'Shopping 1', 'People 1', 'People 2', 'Shopping 2', 'Task',];
+  'Shopping 1', 'People 1', 'Activity', 'Description of persons', 'Professon',
+  'People 2', 'Shopping 2', 'Task',];
   for (let index = 0; index < lessons.length; index++) {
     createLessonPromises.push(await prisma.lesson.create({
       data: {
         name: lessons[index],
-        courseId: index < 6 ? spanishCourse.id : spanishCourse2.id    
+        courseId: index < 7 ? spanishCourse.id : spanishCourse2.id    
       }
     }))
   }
 
+  const resolvedLessons = await Promise.all(createLessonPromises)
   const [
     introductionLesson, 
     genderLesson, 
-    introLesson, 
+    introLesson,
+    unused1, unused2, unused3, unuse4,
     activityLesson, 
     descriptionLesson
-  ] = await Promise.all(createLessonPromises)
+  ] = resolvedLessons
   console.log('Insert lessons - done')
 
   console.log('Insert sentences - start')

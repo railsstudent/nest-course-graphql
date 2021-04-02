@@ -17,7 +17,7 @@ export class CourseService {
         ? null
         : {
             createdAt: {
-              gte: new Date(cursor),
+              gt: new Date(cursor),
             },
           }
 
