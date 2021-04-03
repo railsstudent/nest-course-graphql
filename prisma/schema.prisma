@@ -1,6 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["createMany"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -27,8 +26,8 @@ model language {
   updatedAt    DateTime      @default(now())
   translations translation[]
 
-  @@unique([name, nativeName], name: "lanaguage_name_nativeName_key")
   course course[]
+  @@unique([name, nativeName], name: "lanaguage_name_nativeName_key")
 }
 
 model lesson {
