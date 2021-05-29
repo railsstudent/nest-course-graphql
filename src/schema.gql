@@ -9,8 +9,10 @@ input AddCourseInput {
 }
 
 input AddLanguageInput {
+  flag: String
   name: String!
   nativeName: String!
+  shinyFlag: String
 }
 
 input AddLessonInput {
@@ -52,10 +54,12 @@ type DeletedSentence {
 
 """Language model"""
 type Language {
+  flag: String
   fullname: String
   id: ID!
   name: String
   nativeName: String
+  shinyFlag: String
 }
 
 """Lesson model"""
@@ -125,9 +129,11 @@ input UpdateCourseInput {
 }
 
 input UpdateLanguageInput {
+  flag: String
   id: ID!
   name: String
   nativeName: String
+  shinyFlag: String
 }
 
 input UpdateLessonInput {

@@ -1,6 +1,8 @@
 type LangType = {
     name: string,
-    nativeName: string
+    nativeName: string,
+    flag: string
+    shinyFlag: string
 }
 
 enum TRANS_LANG {
@@ -570,25 +572,1188 @@ export const DescriptionSentences = [
   },
 ]
 
+export const ProfessionSentences: SentenceTranslation[] = [
+  {
+    text: 'El abogado / La abogada',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The lawyer',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '律師',
+      },
+    ],
+  },
+  {
+    text: 'El actor / La actriz',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The lawyer',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '律師',
+      },
+    ],
+  },
+  {
+    text: 'El astronauta / La astronauta',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The astronaut',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '太空人',
+      },
+    ],
+  },
+  {
+    text: 'El administrativo / La administrativa',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The administrative worker',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '行政人員',
+      },
+    ],
+  },
+  {
+    text: 'El arquitecto / La arquitecta',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The architect',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '建築師',
+      },
+    ],
+  },
+  {
+    text: 'El barrendero / La barrendera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The sweeper',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '打掃工人',
+      },
+    ],
+  },
+  {
+    text: 'El biólogo / La bióloga',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The biologist',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '生物學家',
+      },
+    ],
+  },
+  {
+    text: 'El bombero / La bombera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The fireman',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '消防員',
+      },
+    ],
+  },
+  {
+    text: 'El cajero / La cajera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cashier',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '收銀員',
+      },
+    ],
+  },
+  {
+    text: 'El camarero / La camarera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The waiter/ The waitress',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '服務員',
+      },
+    ],
+  },
+  {
+    text: 'El carnicero / La carnicera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The butcher',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '屠夫',
+      },
+    ],
+  },
+  {
+    text: 'El carpintero / La carpintera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The carpenter',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '木匠',
+      },
+    ],
+  },
+  {
+    text: 'El cartero / La cartera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The mailman',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '郵差',
+      },
+    ],
+  },
+  {
+    text: 'El científico / La científica',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The scientist',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '科學家',
+      },
+    ],
+  },
+  {
+    text: 'El cocinero / La cocinera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The chef',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '廚師',
+      },
+    ],
+  },
+  {
+    text: 'El dentisa / La dentisa',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The dentist',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '牙醫',
+      },
+    ],
+  },
+  {
+    text: 'El dependiente / La dependienta',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'salesperson',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '售貨員',
+      },
+    ],
+  },
+  {
+    text: 'El electricista / La electricista',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The electrician',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '電工',
+      },
+    ],
+  },
+  {
+    text: 'El empresario / La empresaria',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The business owner',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '商人',
+      },
+    ],
+  },
+  {
+    text: 'El médico / La médica',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The doctor',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '醫生',
+      },
+    ],
+  },
+  {
+    text: 'El fontanero / La fontanera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The plumber',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '水管工',
+      },
+    ],
+  },
+  {
+    text: 'El fotógrafo / La fotógrafa',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The photographer',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '攝影師',
+      },
+    ],
+  },
+  {
+    text: 'El ingeniero / La ingeniera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The engineer',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '工程師',
+      },
+    ],
+  },
+  {
+    text: 'El juez / La jueza',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The judge',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '法官',
+      },
+    ],
+  },
+  {
+    text: 'El profesor / La profesora',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The professor',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '老師',
+      },
+    ],
+  },
+  {
+    text: 'El mecánico / La mecánica',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The mechanic',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '修理工',
+      },
+    ],
+  },
+  {
+    text: 'El panadero / La panadera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The baker',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '麵包師',
+      },
+    ],
+  },
+  {
+    text: 'El peluquero / La peluquera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The hairdresser',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '理髮師',
+      },
+    ],
+  },
+  {
+    text: 'El periodista / La periodista',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The journalist',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '記者',
+      },
+    ],
+  },
+  {
+    text: 'El pintor / La pintora',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The artist',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '畫家',
+      },
+    ],
+  },
+  {
+    text: 'El policía / La policía',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The police',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '警察',
+      },
+    ],
+  },
+  {
+    text: 'El programador / La programadora',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The programmer',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '程序員',
+      },
+    ],
+  },
+]
+
+export const PlacesOfWorkSentences: SentenceTranslation[] = [
+  {
+    text: 'la escuela / el colegio',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'School',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '學校',
+      },
+    ],
+  },
+  {
+    text: 'el bar / la cafetería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'Bar / Café',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '酒吧 / 咖啡店',
+      },
+    ],
+  },
+  {
+    text: 'el restaurante',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'Restaurant',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '餐廳',
+      },
+    ],
+  },
+  {
+    text: 'la agencia de viajes',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'Travel agency',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '旅行社',
+      },
+    ],
+  },
+  {
+    text: 'El centro de estética',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The aesthetic center',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '美學中心',
+      },
+    ],
+  },
+  {
+    text: 'la autoescuela',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'Driving school',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '駕駛學校',
+      },
+    ],
+  },
+  {
+    text: 'el ayuntamiento',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'City Hall',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '市政府',
+      },
+    ],
+  },
+  {
+    text: 'el banco',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'Bank',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '銀行',
+      },
+    ],
+  },
+  {
+    text: 'la bibliolteca',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'Library',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '圖書館',
+      },
+    ],
+  },
+  {
+    text: 'el supermercado',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'Supermarket',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '超市',
+      },
+    ],
+  },
+  {
+    text: 'la carnicería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'butchery',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '屠房',
+      },
+    ],
+  },
+  {
+    text: 'la verdulería / la frutería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'Vegetable shop / Fruit shop',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '蔬菜水果商 / 水果店',
+      },
+    ],
+  },
+  {
+    text: 'la charcutería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'processed food shop',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '熟食店',
+      },
+    ],
+  },
+  {
+    text: 'la pescadería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'Fish shop',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '魚店',
+      },
+    ],
+  },
+  {
+    text: 'la panadería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the bakery',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '麵包店',
+      },
+    ],
+  },
+  {
+    text: 'la comisaría de policía',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the police station',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '警局',
+      },
+    ],
+  },
+  {
+    text: 'la copistería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the copy shop',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '影印店',
+      },
+    ],
+  },
+  {
+    text: 'el estanco',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the tabacco shop',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '煙草店',
+      },
+    ],
+  },
+  {
+    text: 'la oficina de correos',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'post office',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '郵政局',
+      },
+    ],
+  },
+  {
+    text: 'la peluquería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the barber shop',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '理髮店',
+      },
+    ],
+  },
+  {
+    text: 'la farmacia',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the pharmacy',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '藥店',
+      },
+    ],
+  },
+  {
+    text: 'la floristería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the florist',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '花店',
+      },
+    ],
+  },
+  {
+    text: 'la tienda de ropa',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the clothing store',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '服裝店',
+      },
+    ],
+  },
+  {
+    text: 'la herboristería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the herbal shop',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '藥材店',
+      },
+    ],
+  },
+  {
+    text: 'el hotel',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the hotel',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '酒店',
+      },
+    ],
+  },
+  {
+    text: 'el hospital',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'hospital',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '醫院',
+      },
+    ],
+  },
+  {
+    text: 'la iglesia',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the church',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '教會',
+      },
+    ],
+  },
+  {
+    text: 'la joyería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the jewelry shop',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '珠寶店',
+      },
+    ],
+  },
+  {
+    text: 'la librería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the bookstore',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '書店',
+      },
+    ],
+  },
+  {
+    text: 'la gasolinera',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'the gas station',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '加油站',
+      },
+    ],
+  },
+  {
+    text: 'La camarera trabaja en un bar',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The waitress works in a bar',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '女服務員在酒吧里工作',
+      },
+    ],
+  },
+  {
+    text: 'La panadera trabaja en una panadería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The baker works in a bakery',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '麵包師在麵包店工作',
+      },
+    ],
+  },
+  {
+    text: 'La policía trabaja en una comisaría',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The police work in a police station',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '警察在警局工作',
+      },
+    ],
+  },
+  {
+    text: 'La cajera trabaja en un supermercado',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cashier works in a supermarket',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '收銀員在一家超市工作',
+      },
+    ],
+  },
+  {
+    text: 'La profesora trabaja en un colegio',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The teacher works in a school',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '老師在學校工作',
+      },
+    ],
+  },
+  {
+    text: 'La carnicera trabaja en un carnicería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The butcher works in a butcher shop',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '屠夫在肉店工作',
+      },
+    ],
+  },
+  {
+    text: 'La médica trabaja en el hospital',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The doctor works in the hospital',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '醫生在醫院工作',
+      },
+    ],
+  },
+  {
+    text: 'La peluquera trabaja en la peluquería',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The hairdresser works in the barber shop',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '理髮師在理髮店工作',
+      },
+    ],
+  },
+  {
+    text: 'La cartera trabaja en una oficina de correos',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The postman works in a post office',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '郵差在郵局工作',
+      },
+    ],
+  },
+  {
+    text: 'La dependienta trabaja en una tienda de ropa',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The staff works in a clothing store',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '店員在一家服裝店工作',
+      },
+    ],
+  },
+]
+
+export const PrepositionSentences: SentenceTranslation[] = [
+  {
+    text: 'El gato está encima de la mesa.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is on the table.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在桌子上。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está sobre la mesa.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is on the table.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在桌子上。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está en la mesa.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is on the table.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在桌子上。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está debajo de la mesa.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is under the table.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在桌子底下。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está entre la mesa y la caja.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is between the table and the box.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在桌子和盒子之間。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está en el medio de la mesa y el flores.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is in the middle of the table and the flowers.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在桌子和花中間。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está a la izquierda de la caja.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is to the left of the box.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在盒子的左邊。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está a la derecha de la caja.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is to the right of the box.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在盒子的右邊。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está a lado de la caja.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is next to the box.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在盒子旁邊。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está dentro de la caja.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is inside the box.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在盒子裡面。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está fuera de la caja.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is outside of the box.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在盒子外面。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está cerca de la caja.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is near the box.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在箱子附近。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está delante de la caja.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is in front of the box.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在盒子前面。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está enfrente de la caja.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is in front of the box.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在盒子前面。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está detrás de la caja.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is behind the box.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓在盒子後面。',
+      },
+    ],
+  },
+  {
+    text: 'El gato está lejos de la caja.',
+    translations: [
+      {
+        lang: TRANS_LANG.ENG,
+        text: 'The cat is far away from the box.',
+      },
+      {
+        lang: TRANS_LANG.CHN,
+        text: '貓離盒子很遠。',
+      },
+    ],
+  },
+]
+
 export const AvailableLanguages: LangType[] = [
-    {
-        name: 'English',
-        nativeName: 'English'
-    },
-    {
-        name: 'Chinese',
-        nativeName: '中文'
-    },
-    {
-        name: 'Spanish',
-        nativeName: 'Español'
-    },
-    {
-        name: 'Portuguese',
-        nativeName: 'Português'
-    },
-    {
-        name: 'Vietnamese',
-        nativeName: 'Tiếng Việt'
-    }
-  ]
+  {
+    name: 'English',
+    nativeName: 'English',
+    flag: 'https://www.countryflags.io/us/flat/64.png',
+    shinyFlag: 'https://www.countryflags.io/us/shiny/64.png',
+  },
+  {
+    name: 'Chinese',
+    nativeName: '中文',
+    flag: 'https://www.countryflags.io/hk/flat/64.png',
+    shinyFlag: 'https://www.countryflags.io/hk/shiny/64.png',
+  },
+  {
+    name: 'Spanish',
+    nativeName: 'Español',
+    flag: 'https://www.countryflags.io/es/flat/64.png',
+    shinyFlag: 'https://www.countryflags.io/es/shiny/64.png',
+  },
+  {
+    name: 'Portuguese',
+    nativeName: 'Português',
+    flag: 'https://www.countryflags.io/br/flat/64.png',
+    shinyFlag: 'https://www.countryflags.io/br/shiny/64.png',
+  },
+  {
+    name: 'Vietnamese',
+    nativeName: 'Tiếng Việt',
+    flag: 'https://www.countryflags.io/vn/flat/64.png',
+    shinyFlag: 'https://www.countryflags.io/vn/shiny/64.png',
+  },
+]

@@ -3,7 +3,7 @@ version: '3.7'
 services:
   postgres:
     container_name: postgres_container
-    image: postgres:12.5-alpine
+    image: postgres:12.7-alpine
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
